@@ -1,5 +1,5 @@
 ---
-CIP:
+CIP: ????
 Title: Evolution of Project Catalyst
 Category: Meta
 Status: Proposed
@@ -18,7 +18,8 @@ License: CC-BY-4.0
 This CIP proposes a process for proposing changes to Project Catalyst, its internal processes and its interface to the Cardano ecosystem. This document formally enlists Project Catalyst to adhere to the CIP process. 
 
 ## Motivation
-<!-- A clear explanation that introduces the reason for a proposal, its use cases and stakeholders. If the CIP changes an established design then it must outline design issues that motivate a rework. For complex proposals, authors must write a Cardano Problem Statement (CPS) as defined in CIP-9999 and link to it as the `Motivation`. -->
+<!-- A clear explanation that introduces the reason for a proposal, its use cases and stakeholders. -->
+
 Project Catalyst is a dynamic program that is likely to evolve over time. There are many reasons for this:
 
 - We may need to change the internal processes in order to improve efficiency or responsiveness.
@@ -27,6 +28,10 @@ Project Catalyst is a dynamic program that is likely to evolve over time. There 
 - We may need to adapt to changing conditions in the Cardano ecosystem and the broader blockchain space.
 
 At the moment there is no formal process for making such changes other than the discretion of the Project Catalyst team. This CIP provides a framework for proposing and implementing changes to Project Catalyst in a transparent and community-driven manner.
+
+### Background
+
+Project Catalyst is a program that seeks to support and fund innovative projects built on the Cardano blockchain. The program is divided into a series of funds that are deployed every six weeks. Participants can submit proposals that tackle challenges and capitalize on opportunities in the Cardano ecosystem. These proposals are vetted by a group of incentivized proposal assessors and then voted on by the community. Winning projects receive funding in the form of ADA. Project Catalyst is open to anyone, regardless of whether they are an ADA holder or not.
 
 ## Specification
 <!-- The technical specification should describe the proposed improvement in sufficient technical detail. In particular, it should provide enough information that an implementation can be performed solely on the basis of the design in the CIP. This is necessary to facilitate multiple, interoperable implementations. -->

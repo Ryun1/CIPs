@@ -1,5 +1,5 @@
 ---
-CIP: 0052
+CIP: 52
 Title: Cardano audit best practice guidelines
 Authors: Simon Thompson <simon.thompson@iohk.io>
 Comments-Summary: No comments yet.
@@ -222,6 +222,7 @@ DApps are used by *DApp users*, and built by *DApp developers*. Audit is perform
 | Hachi           | https://hachi.one                       | team@hachi.one        |
 | MLabs           | https://mlabs.city                      | info@mlabs.city      |
 | Runtime Verification           | https://www.runtimeverification.com | contact@runtimeverification.com  |
+| Tweag                | https://www.tweag.io                  | sales@tweag.io                  |
 
 ### 4. A sample audit report
 

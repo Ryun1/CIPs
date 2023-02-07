@@ -2,22 +2,22 @@ string = text .size (0..64)
 subject = string ; utf-8
 
 
-type_details = { action: string, release_number: float, release_name: string }
+type_details = { action : string, release_number : float, release_name : string }
 
 
 signature_details = {
-	r: bytes,
-	s: bytes,
-	algo: string,
-	pub: bytes .size 32
+	r : bytes,
+	s : bytes,
+	algo : string,
+	pub : bytes .size 32
 }
 
 dapp_registraion = {
-	subject: string,
-	rootHash: bytes .size 64,
-	schema_version: uint .size 4,
-	type: type_details,
-	signature: signature_details
+	subject : string,
+	rootHash : bytes .size 64,
+	schema_version : uint .size 4,
+	type : type_details,
+	signature : signature_details
 }
 
-metadata = { 1667: uint dapp_registraion }
+metadata = { 1667 : uint dapp_registraion }

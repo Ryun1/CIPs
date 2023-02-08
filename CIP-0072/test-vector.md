@@ -25,7 +25,9 @@ Schema version `0.0.1`
 
 ### Blake2b-256 Hash
 
-
+```javascript
+c0e3f7b1aafae0698b8c98ea241491f5adf30dfc0411155eb94cad96f5acfb15
+```
 
 ### Full Cert
 

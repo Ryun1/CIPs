@@ -1,0 +1,35 @@
+{
+  "@context": {
+    "paymentAddress": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/common-properties.jsonld#payment-address",
+    "displayName": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/common-properties.jsonld#displayName",
+    "DID": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/common-properties.jsonld#DID",
+    "language": "https://datahub.io/core/language-codes/r/0.html",
+    "justification": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/common-properties.jsonld#justification",
+    "URL": "https://schema.org/url",
+    "externalUpdates": {
+      "@id": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/common-properties.jsonld#externalUpdate",
+      "@type": "@id"
+    }
+  },
+  "authors": [
+    {
+      "@type": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/common-properties.jsonld#author",
+      "paymentAddress": "addr_test1qzqhq6kh26l3q0q9mrhqgx50dax667m29sza9w9dwfx6fft2gj0c8c80nl9j7n2ppc8uxasq08990yvqer6v007pt55sjcqugz",
+      "displayName": "Ryan Williams",
+      "DID": "did:example:1234567890abcdef"
+    },
+    {
+      "@type": "https://github.com/cardano-foundation/CIPs/blob/master/CIP-0100/common-properties.jsonld#author",
+      "paymentAddress": "addr_test1wpkr3t9dlvzx4dfx27s99c7qdy3e5ldva3k9p22hynhrn4sycarcn",
+      "displayName": "Leonard Hegarty"
+    }
+  ],
+  "language": "en",
+  "justification": "This proposal is being made to take money from the treasury to fund us buying an island",
+  "externalUpdates": [
+    {
+      "@type": "https://schema.org/WebPage",
+      "URL": "https://www.google.com/maps/place/World's+only+5th+order+recursive+island/@62.6416748,-97.8213068,23322m/data=!3m1!1e3!4m6!3m5!1s0x5216a167810cee39:0x11431abdfe4c7421!8m2!3d62.651114!4d-97.7872244!16s%2Fg%2F11spwk2b6n?authuser=0&entry=ttu"
+    }
+  ]
+}

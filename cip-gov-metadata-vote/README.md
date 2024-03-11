@@ -19,15 +19,38 @@ Some of these artifacts support the linking off-chain metadata, as a way to prov
 The [CIP-100 | Governance Metadata](https://github.com/cardano-foundation/CIPs/tree/master/CIP-0100) standard provides a base framework for how all off-chain governance metadata should be formed and handled.
 But this is intentionally limited in scope, so that it can be expanded upon by more specific subsequent CIPs.
 
-This proposal aims to provide a specification for off-chain metadata vocabulary that can be used to give context to votes, CIP-100.
-Without a sufficiently detailed standard for governance actions we introduce the possibility to undermine voters ability to adequately assess governance actions.
+This proposal aims to provide a specification for off-chain metadata vocabulary that can be used to give context to votes.
+Without a sufficiently detailed standard for votes we introduce the possibility to undermine delegator's ability to adequately assess the voting of DReps, SPOs and Constitutional Committee Members.
 Furthermore a lack of such standards risks preventing interoperability between tools, to the detriment of user experiences.
 
 ## Motivation: why is this CIP necessary?
-<!-- A clear explanation that introduces the reason for a proposal, its use cases and stakeholders. If the CIP changes an established design then it must outline design issues that motivate a rework. For complex proposals, authors must write a Cardano Problem Statement (CPS) as defined in CIP-9999 and link to it as the `Motivation`. -->
+Blockchains are poor choices for content databases.
+This is why governance metadata anchors were chosen to provide a way to attach long form metadata content to on-chain events.
+By only supplying an onchain hash of the off-chain we ensure correctness of data whilst minimizing the amount of data stored chain.
+
+### For Delegators
+When observing from the chain level, tooling can only see the content of the vote and it's anchor.
+These on-chain components do not give give any context to the motivation nor off-chain discussion of an vote.
+Although this information would likely be desired context for voters.
+By providing rich contextual metadata we enable voters to make well informed decisions.
+
+### For all participants
+By standardizing off-chain metadata formats we facilitate interoperability for tooling which creates and/or renders metadata attached to votes.
+This intern promotes a rich user experience between tooling.
+This is good for all governance participants.
 
 ## Specification
-<!-- The technical specification should describe the proposed improvement in sufficient technical detail. In particular, it should provide enough information that an implementation can be performed solely on the basis of the design in the CIP. This is necessary to facilitate multiple, interoperable implementations. This must include how the CIP should be versioned, if not covered under an optional Versioning main heading. If a proposal defines structure of on-chain data it must include a CDDL schema in its specification.-->
+Although there are three types of vote defined via CIP-1694, we focus this proposal on defining core properties which must be attached to all types.
+We leave room for future standards to refine and specialize further to cater more specific for each type of vote.
+
+### New `witness` Type
+Here we extend the potential witnesses, with a `witnessAlgorithm` that can be set to include support for [CIP-08 | Message Signing](https://github.com/cardano-foundation/CIPs/tree/master/CIP-0008) standard, indicated by `CIP-0008`.
+Here we mimic the restrictions as imposed over the CIP-30's implementation in [.signData()](https://github.com/cardano-foundation/CIPs/tree/master/CIP-0030#apisigndataaddr-address-payload-bytes-promisedatasignature).
+
+### Extended Vocabulary
+The following properties extend the potential vocabulary of [CIP-100](https://github.com/cardano-foundation/CIPs/tree/master/CIP-0100)'s `body` property.
+
+
 
 ## Rationale: how does this CIP achieve its goals?
 <!-- The rationale fleshes out the specification by describing what motivated the design and what led to particular design decisions. It should describe alternate designs considered and related work. The rationale should provide evidence of consensus within the community and discuss significant objections or concerns raised during the discussion.

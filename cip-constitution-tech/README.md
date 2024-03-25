@@ -68,7 +68,7 @@ Before creating a hash digest the constitution plain text must be in its raw un-
 ### Storage
 
 The each ratified constitution MUST be stored, immutably on a distributed storage mechanism (such as IPFS).
-Where backups can be easily made in a permission less manor by interested parties.
+Where backups can be easily made in a permission less manner by interested parties.
 Must be easily accessible, normal tooling can support it.
 Authors SHOULD NOT specify the use of centralized gateways to access the constitution plain text.
 

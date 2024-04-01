@@ -74,7 +74,7 @@ Authors SHOULD NOT specify the use of centralized gateways to access the constit
 
 ### Rich Text Formatting
 
-The constitution text MAY include a subset of markdown text styling.
+The constitution text MAY include a subset of markdown text styling as defined in this specification.
 Tooling rendering the constitution for users, should recognize these and render them faithfully.
 
 #### Headers
@@ -232,6 +232,12 @@ Just like CIP-1694, we aim to define a minimal viable set of standards to ensure
 - wanted to keep a bare minimum spec, no images or videos
 - also dont want people to be able to attack consumers by attacks utilizing the HTML
 
+## Open Questions
+- [ ] How can we support multi-languages?
+- [ ] Should we specify any standardization for the proposal policy?
+- [ ] How can we add page breaks?
+- [ ] Do we want a mechanism for specifying authors? (similar to CIP-100)
+
 ## Path to Active
 
 ### Acceptance Criteria
@@ -243,6 +249,7 @@ Just like CIP-1694, we aim to define a minimal viable set of standards to ensure
 
 #### Solicitation of feedback
 
+- [ ] Answer all [Open Questions](#open-questions)
 - [ ] Review from the Civics Committee
 - [ ] Review from X working group
 

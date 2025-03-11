@@ -74,8 +74,9 @@ credential = [0, addr_keyhash // 1, script_hash]
 It must also explain how the proposal affects the backward compatibility of existing solutions when applicable. If the proposal responds to a CPS, the 'Rationale' section should explain how it addresses the CPS, and answer any questions that the CPS poses for potential solutions.
 -->
 
-arguements for
+arguments for
 - This would align SPOs cold credentials with DRep credentials.
+- this is the case for all other credentials
 
 arguments against
 - very large ledger up lift

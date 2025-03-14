@@ -1,10 +1,10 @@
 ---
-CPS: ?
+CPS: ???
 Title: Key-based Stake Pool Operator Cold Credentials
 Status: Open
 Category: Ledger
 Authors:
-    - Mike Hornan <mr hornan's email>
+    - Mike Hornan <mike.hornan@able-pool.io>
     - Ryan Williams <ryan.williams@intersectmbo.org>
 Proposed Solutions: []
 Discussions:
@@ -21,7 +21,15 @@ Allowing the use of script-based credentials for SPO cold keys would allow impro
 
 
 ## Problem
-<!-- A more elaborate description of the problem and its context. This section should explain what motivates the writing of the CPS document. -->
+The motivation behind this CPS arises from the current limitations faced by Stake Pool Operators (SPOs) within the Cardano ecosystem. At present, 
+SPOs are restricted to using key-based credentials for their 'Cold Key,' which prevents the use of script-based credentials to share ownership and 
+control of the stake pool. This limitation creates challenges in terms of security and multi-party management.
+
+By enabling script-based credentials for the pool keyhash, SPOs would have the ability to implement multiple signers, significantly enhancing security. 
+With this approach, if one signer’s key is compromised, it would be possible to rotate the keys without needing to change the script hash, ensuring 
+continuity and reducing the risk of security breaches. Moreover, this would allow a more collaborative form of pool ownership, enabling multiple parties 
+to jointly control the pool, rather than relying on a single keyholder for all decisions and changes. This flexibility would foster greater decentralization, 
+improve operational resilience, and mitigate risks associated with single points of failure.
 
 The [current ledger design](https://github.com/IntersectMBO/cardano-ledger/blob/master/eras/conway/impl/cddl-files/conway.cddl) associates five types of credential with stake pool operators:
 - `pool_keyhash`

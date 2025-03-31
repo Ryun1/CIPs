@@ -47,21 +47,47 @@ such as an election of new constitutional committee or a budget process prior to
 ## Specification
 <!-- The technical specification should describe the proposed improvement in sufficient technical detail. In particular, it should provide enough information that an implementation can be performed solely on the basis of the design in the CIP. This is necessary to facilitate multiple, interoperable implementations. This must include how the CIP should be versioned, if not covered under an optional Versioning main heading. If a proposal defines structure of on-chain data it must include a CDDL schema in its specification.-->
 
-### Approach
+### Overview
 
 - Tools follow Cardano networks for transactions containing poll creation metadata
 - Different types of poll are permitted
 - Tools show users active polls
 - Tools allow users in specified voter groups to create votes, which are submitted to Cardano networks
-- Tools follow networks for votes, showing users tallies of valid votes
+- Tools follow networks for votes, showing tallies of valid votes
 - Tools shows results of a poll when poll expires
 
 what we need to define
 
 - Types of poll, and their parameters
-- Types of votes, and how to validate (different per type of voter/credential)
+  - CC elections, budget proposals
+- Types of votes, and how to validate (different per type of voter/credential) 
+  - Voters: SPO keys + calidus keys, DRep credentials, stake credentials, cc credentials
 - Vote tallying techniques
 
+### On-chain definitions
+
+#### Poll Structure
+
+- poll description (+ link to off-chain metadata)
+- poll question
+- poll choices
+- poll desired voters/credentials
+- poll lifetime
+- nonce
+- votes via cardano network or hydra?
+
+#### Vote Structure
+
+- refers to a poll (hash)
+- providers an answer to poll
+- providers a authorizing witness/signature
+- nonce?
+
+### Vote Validations and Tallying
+
+- which voters which credentials
+- how are votes validated
+- how to treat invalid votes
 
 ## Rationale: how does this CIP achieve its goals?
 <!-- The rationale fleshes out the specification by describing what motivated the design and what led to particular design decisions. It should describe alternate designs considered and related work. The rationale should provide evidence of consensus within the community and discuss significant objections or concerns raised during the discussion.
@@ -77,7 +103,6 @@ It must also explain how the proposal affects the backward compatibility of exis
 ### Implementation Plan
 <!-- A plan to meet those criteria or `N/A` if an implementation plan is not applicable. -->
 
-<!-- OPTIONAL SECTIONS: see CIP-0001 > Document > Structure table -->
 
 ## Copyright
 

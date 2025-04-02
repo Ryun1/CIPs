@@ -23,8 +23,10 @@ Here we consolidate the common naming for Cardano parameters.
 ## Motivation: why is this CIP necessary?
 <!-- A clear explanation that introduces the reason for a proposal, its use cases and stakeholders. If the CIP changes an established design then it must outline design issues that motivate a rework. For complex proposals, authors must write a Cardano Problem Statement (CPS) as defined in CIP-9999 and link to it as the `Motivation`. -->
 
-Communicating parameters 
+Discussing Cardano parameters is difficult with varied vernaculars.
 
+- been made more difficult with on-chain governance bringing the discussion up
+- Constitution uses one set of definitions
 
 https://github.com/cardano-foundation/CIPs/tree/master/CIP-0009
 
@@ -35,7 +37,13 @@ https://github.com/cardano-foundation/CIPs/tree/master/CIP-0055
 ## Specification
 <!-- The technical specification should describe the proposed improvement in sufficient technical detail. In particular, it should provide enough information that an implementation can be performed solely on the basis of the design in the CIP. This is necessary to facilitate multiple, interoperable implementations. This must include how the CIP should be versioned, if not covered under an optional Versioning main heading. If a proposal defines structure of on-chain data it must include a CDDL schema in its specification.-->
 
-Version: `Conway`
+
+| Name via cardano-cli | Common Name | Description | Name via DBSync | Name vis Constitution |
+| --- | --- | --- | --- | --- |
+| `protocolVersion` | | Protocol version. Minor versions indicate software updates (will generally be 0). Major version 1 = Byron, 2 = Shelley | | |
+| `nOpt` | K | Target number of pools ("k"). Impacts saturation threshold, encouraging growth in number of stake pools. | | |
+
+
 
 ## Rationale: how does this CIP achieve its goals?
 <!-- The rationale fleshes out the specification by describing what motivated the design and what led to particular design decisions. It should describe alternate designs considered and related work. The rationale should provide evidence of consensus within the community and discuss significant objections or concerns raised during the discussion.

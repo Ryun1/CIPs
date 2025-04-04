@@ -19,17 +19,20 @@ As of Cardano's Conway Ledger era Stake Pool Operators (SPOs) are restricted to 
 This imposes limitations on how SPOs can operate.
 Allowing the use of script-based credentials for SPO cold keys would allow improvements in security and flexibility.
 
-
 ## Problem
-The motivation behind this CPS arises from the current limitations faced by Stake Pool Operators (SPOs) within the Cardano ecosystem. At present, 
-SPOs are restricted to using key-based credentials for their 'Cold Key,' which prevents the use of script-based credentials to share ownership and 
-control of the stake pool. This limitation creates challenges in terms of security and multi-party management.
 
-By enabling script-based credentials for the pool keyhash, SPOs would have the ability to implement multiple signers, significantly enhancing security. 
-With this approach, if one signer’s key is compromised, it would be possible to rotate the keys without needing to change the script hash, ensuring 
-continuity and reducing the risk of security breaches. Moreover, this would allow a more collaborative form of pool ownership, enabling multiple parties 
-to jointly control the pool, rather than relying on a single keyholder for all decisions and changes. This flexibility would foster greater decentralization, 
-improve operational resilience, and mitigate risks associated with single points of failure.
+The motivation behind this CPS arises from the current limitations faced by Stake Pool Operators (SPOs) within the Cardano ecosystem.
+At present, SPOs are restricted to using key-based credentials for their 'Cold Key',
+which prevents the use of script-based credentials to share ownership and control of the stake pool.
+This limitation creates challenges in terms of security and multi-party management.
+
+By enabling script-based credentials for the pool keyhash, SPOs would have the ability to implement multiple signers, significantly enhancing security.
+With this approach, if one signer’s key is compromised, it would be possible to rotate the keys without needing to change the script hash,
+ensuring continuity and reducing the risk of security breaches.
+Moreover, this would allow a more collaborative form of pool ownership, enabling multiple parties to jointly control the pool,
+rather than relying on a single key-holder for all decisions and changes.
+This flexibility would foster greater decentralization, improve operational resilience,
+and mitigate risks associated with single points of failure.
 
 The [current ledger design](https://github.com/IntersectMBO/cardano-ledger/blob/master/eras/conway/impl/cddl-files/conway.cddl) associates five types of credential with stake pool operators:
 - `pool_keyhash`
@@ -55,6 +58,13 @@ The [current ledger design](https://github.com/IntersectMBO/cardano-ledger/blob/
 ## Use cases
 <!-- A concrete set of examples written from a user's perspective, describing what and why they are trying to do. When they exist, this section should give a sense of the current alternatives and highlight why they are not suitable. -->
 
+1. Multi-party stake pools
+
+
+2. Smart Contract stake pools
+- programmability
+
+
 ## Goals
 <!-- A list of goals and non-goals a project is pursuing, ranked by importance. These goals should help understand the design space for the solution and what the underlying project is ultimately trying to achieve.
 
@@ -77,7 +87,5 @@ arguments against
 - is the problem worth solving? - potential impact worth it?
 
 ## Copyright
-<!-- The CPS must be explicitly licensed under acceptable copyright terms.  Uncomment the one you wish to use (delete the other one) and ensure it matches the License field in the header: -->
 
-<!-- This CPS is licensed under [CC-BY-4.0](https://creativecommons.org/licenses/by/4.0/legalcode). -->
-<!-- This CPS is licensed under [Apache-2.0](http://www.apache.org/licenses/LICENSE-2.0). -->
+This CPS is licensed under [CC-BY-4.0](https://creativecommons.org/licenses/by/4.0/legalcode).

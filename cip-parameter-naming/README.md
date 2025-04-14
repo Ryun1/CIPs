@@ -13,10 +13,9 @@ License: CC-BY-4.0
 ---
 
 ## Abstract
-<!-- A short (\~200 word) description of the proposed solution and the technical issue being addressed. -->
 
 Cardano networks have many configurable parameters which control their execution.
-Different tools identify these parameters by different names, this can cause confusion for users.
+Different tools identify these parameters by different names, this can cause confusion.
 
 Here we consolidate the common naming for Cardano parameters.
 
@@ -24,6 +23,7 @@ Here we consolidate the common naming for Cardano parameters.
 <!-- A clear explanation that introduces the reason for a proposal, its use cases and stakeholders. If the CIP changes an established design then it must outline design issues that motivate a rework. For complex proposals, authors must write a Cardano Problem Statement (CPS) as defined in CIP-9999 and link to it as the `Motivation`. -->
 
 Discussing Cardano parameters is difficult with varied vernaculars.
+Different tools have 
 
 - been made more difficult with on-chain governance bringing the discussion up
 - Constitution uses one set of definitions

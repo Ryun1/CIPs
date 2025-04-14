@@ -15,26 +15,31 @@ License: CC-BY-4.0
 
 ## Abstract
 
-As of Cardano's Conway Ledger era Stake Pool Operators (SPOs) are restricted to only be able to use key-based credentials for their 'Cold Key'.
+Within Cardano's Ledger design Stake Pool Operators (SPOs) are restricted to only be able to use key-based credentials for their 'Cold Keys'.
 This imposes limitations on how SPOs can operate.
 Allowing the use of script-based credentials for SPO cold keys would allow improvements in security and flexibility.
 
 ## Problem
 
-The motivation behind this CPS arises from the current limitations faced by Stake Pool Operators (SPOs) within the Cardano ecosystem.
+The motivation behind this CPS arises from the current limitations faced by SPOs within the Cardano ecosystem.
 At present, SPOs are restricted to using key-based credentials for their 'Cold Key',
-which prevents the use of script-based credentials to share ownership and control of the stake pool.
+which prevents the use of script-based credentials for programmability of cold keys.
 This limitation creates challenges in terms of security and multi-party management.
 
-By enabling script-based credentials for the pool keyhash, SPOs would have the ability to implement multiple signers, significantly enhancing security.
-With this approach, if one signer’s key is compromised, it would be possible to rotate the keys without needing to change the script hash,
+By enabling script-based credentials for the pool cold keys,
+SPOs would have the ability to implement multiple authorization schemes,
+significantly enhancing security.
+With this approach, if one signing key is compromised,
+it would be possible to rotate the keys without needing to change the script hash,
 ensuring continuity and reducing the risk of security breaches.
-Moreover, this would allow a more collaborative form of pool ownership, enabling multiple parties to jointly control the pool,
+
+Moreover, this would allow a more collaborative form of pool ownership,
+enabling multiple parties to jointly control the pool,
 rather than relying on a single key-holder for all decisions and changes.
 This flexibility would foster greater decentralization, improve operational resilience,
 and mitigate risks associated with single points of failure.
 
-The [current ledger design](https://github.com/IntersectMBO/cardano-ledger/blob/master/eras/conway/impl/cddl-files/conway.cddl) associates five types of credential with stake pool operators:
+<!-- The [current ledger design](https://github.com/IntersectMBO/cardano-ledger/blob/master/eras/conway/impl/cddl-files/conway.cddl) associates five types of credential with stake pool operators:
 - `pool_keyhash`
 - `hot_vkey`
 - `vrf_keyhash`
@@ -52,18 +57,28 @@ The [current ledger design](https://github.com/IntersectMBO/cardano-ledger/blob/
 `pool_owners` is a set of keys used to identify payment credentials associated with the SPO.
 
 - one key, one point of failure
-- scripts give a lot of flexibility - nice for governance voting
+- scripts give a lot of flexibility - nice for governance voting -->
 
 
 ## Use cases
 <!-- A concrete set of examples written from a user's perspective, describing what and why they are trying to do. When they exist, this section should give a sense of the current alternatives and highlight why they are not suitable. -->
 
-1. Multi-party stake pools
+### 1. Multi-party Stake Pools
 
+It is common practice for multiple individuals to collaborate on the operation of a stake pool.
+Currently the control of the cold key is limited to the control of a single key.
+This presents challenges of access, as it is undesirable for individuals to share access to a single key.
 
-2. Smart Contract stake pools
-- programmability
+Script-based credentials using native multi-sig scripts would allow multiple key-holders to control a single credential.
+This would allow multiple individuals to collaborate on the creation of a cold key multi-signature script.
+For operations requiring the cold key, these individuals would each independently produce witnesses and combine into a valid transaction.
 
+Such multi-party control would be enforced by the ledger design.
+Preventing the need for trust on a single key-holder.
+
+### 2. Smart Contract Stake Pools
+
+Smart contracts on Cardano allow for expressive logic to be applied to control script-based credentials.
 
 ## Goals
 <!-- A list of goals and non-goals a project is pursuing, ranked by importance. These goals should help understand the design space for the solution and what the underlying project is ultimately trying to achieve.

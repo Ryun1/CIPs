@@ -1,0 +1,172 @@
+[
+    {
+      "commonName": "Protocol Version",
+      "specName": "",
+      "cliName": "protocolVersion",
+      "dbSyncName": "{protocol_major, protocol_minor}",
+      "constitutionName": "",
+      "definition": "Protocol version. Minor versions indicate software updates (will generally be 0). Major version 1 = Byron, 2 = Shelley",
+      "eraAdded": "Byron",
+      "eraRemoved": "—"
+    },
+    {
+      "commonName": "K",
+      "specName": "nOpt",
+      "cliName": "stakePoolTargetNum",
+      "dbSyncName": "optimal_pool_count",
+      "constitutionName": "*stakePoolTargetNum*",
+      "definition": "Target number of pools (\"k\"). Impacts saturation threshold, encouraging growth in number of stake pools.",
+      "eraAdded": "Shelley",
+      "eraRemoved": "—"
+    },
+    {
+      "commonName": "Influence Factor",
+      "specName": "a0",
+      "cliName": "poolPledgeInfluence",
+      "dbSyncName": "influence",
+      "constitutionName": "*poolPledgeInfluence*",
+      "definition": "\"Influence Factor\". Governs how much impact the pledge has on rewards.",
+      "eraAdded": "Shelley",
+      "eraRemoved": "—"
+    },
+    {
+      "commonName": "Min Pool Cost",
+      "specName": "",
+      "cliName": "minPoolCost",
+      "dbSyncName": "",
+      "constitutionName": "",
+      "definition": "Minimum Pool Cost per epoch (in lovelace). Enables pledge effect.",
+      "eraAdded": "Shelley",
+      "eraRemoved": "—"
+    },
+    {
+      "commonName": "Decentralization Param",
+      "specName": "",
+      "cliName": "decentralisationParam",
+      "dbSyncName": "",
+      "constitutionName": "",
+      "definition": "Level of decentralisation. Starts at 1. Block production is fully decentralised when this reaches 0.",
+      "eraAdded": "Shelley",
+      "eraRemoved": "—"
+    },
+    {
+      "commonName": "Max Block Body Size",
+      "specName": "",
+      "cliName": "maxBlockBodySize",
+      "dbSyncName": "",
+      "constitutionName": "",
+      "definition": "Maximum size of a block body. Limits blockchain storage size, and communication costs.",
+      "eraAdded": "Byron",
+      "eraRemoved": "—"
+    },
+    {
+      "commonName": "Max Block Header Size",
+      "specName": "",
+      "cliName": "maxBlockHeaderSize",
+      "dbSyncName": "",
+      "constitutionName": "",
+      "definition": "Maximum size of the block header. Should be significantly less than the maximum block size.",
+      "eraAdded": "Byron",
+      "eraRemoved": "—"
+    },
+    {
+      "commonName": "Max Tx Size",
+      "specName": "",
+      "cliName": "maxTxSize",
+      "dbSyncName": "",
+      "constitutionName": "",
+      "definition": "Maximum size of a transaction. Several transactions may be included in a block. Must be strictly less than the max. block body size.",
+      "eraAdded": "Byron",
+      "eraRemoved": "—"
+    },
+    {
+      "commonName": "Treasury Rate",
+      "specName": "tau",
+      "cliName": "treasuryCut",
+      "dbSyncName": "",
+      "constitutionName": "",
+      "definition": "Treasury rate (0.2 = 20%). Proportion of total rewards allocated to treasury each epoch before remaining rewards are distributed to pools.",
+      "eraAdded": "Shelley",
+      "eraRemoved": "—"
+    },
+    {
+      "commonName": "Monetary Expansion",
+      "specName": "rho",
+      "cliName": "monetaryExpansion",
+      "dbSyncName": "",
+      "constitutionName": "",
+      "definition": "Monetary expansion rate per epoch. Governs the rewards that are returned from reserves to the ecosystem (treasury, stake pools and delegators).",
+      "eraAdded": "Shelley",
+      "eraRemoved": "—"
+    },
+    {
+      "commonName": "Pool Deposit",
+      "specName": "poolDeposit",
+      "cliName": "stakePoolDeposit",
+      "dbSyncName": "",
+      "constitutionName": "",
+      "definition": "Pool deposit (in lovelace)",
+      "eraAdded": "Shelley",
+      "eraRemoved": "—"
+    },
+    {
+      "commonName": "Key Deposit",
+      "specName": "",
+      "cliName": "keyDeposit",
+      "dbSyncName": "",
+      "constitutionName": "",
+      "definition": "Deposit charged for stake keys (in Lovelace). Ensures that unused keys are returned, so freeing resources.",
+      "eraAdded": "Shelley",
+      "eraRemoved": "—"
+    },
+    {
+      "commonName": "Min Fee B",
+      "specName": "",
+      "cliName": "minFeeB",
+      "dbSyncName": "",
+      "constitutionName": "",
+      "definition": "Base transaction fee (in lovelace).",
+      "eraAdded": "Byron",
+      "eraRemoved": "—"
+    },
+    {
+      "commonName": "Min Fee A",
+      "specName": "",
+      "cliName": "minFeeA",
+      "dbSyncName": "",
+      "constitutionName": "",
+      "definition": "Additional transaction fee per byte of data (in lovelace).",
+      "eraAdded": "Byron",
+      "eraRemoved": "—"
+    },
+    {
+      "commonName": "Min UTxO Value",
+      "specName": "",
+      "cliName": "minUTxOValue",
+      "dbSyncName": "",
+      "constitutionName": "",
+      "definition": "Minimum allowed value in a UTxO. Security-related parameter used to prevent the creation of many small UTxOs that could use excessive resource.",
+      "eraAdded": "Shelley",
+      "eraRemoved": "Babbage"
+    },
+    {
+      "commonName": "Extra Entropy",
+      "specName": "",
+      "cliName": "extraEntropy",
+      "dbSyncName": "",
+      "constitutionName": "",
+      "definition": "Should additional entropy be included in the initial phases. Provides certainty the chain wasn't compromised by seed holders. Redundant later.",
+      "eraAdded": "Byron",
+      "eraRemoved": "Shelley"
+    },
+    {
+      "commonName": "Epoch Max (eMax)",
+      "specName": "eMax",
+      "cliName": "poolRetireMaxEpoch",
+      "dbSyncName": "",
+      "constitutionName": "",
+      "definition": "Maximum number of epochs within which a pool can be announced to retire, starting from the next epoch.",
+      "eraAdded": "Shelley",
+      "eraRemoved": "—"
+    }
+  ]

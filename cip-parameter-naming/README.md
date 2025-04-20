@@ -43,53 +43,32 @@ See:
 
 ### Definitions
 
-These definitions should be maintained for future Cardano ledger eras.
+#### Updatable Parameters
 
-#### Shelley Era
-
-Information based-on [CIP-0009 | Protocol Parameters (Shelley Era)][CIP-0009].
-
-##### Updatable Parameters
-
-| Common Name              | Name via Spec            | Name via `cardano-cli`  | Name via `DB-Sync`  | Name via Constitution | Definition |
-|--------------------------|--------------------------|--------------------------|----------------------|------------------------|------------|
-| Protocol Version         |                          | `protocolVersion`        | `{protocol_major, protocol_minor}` | major and minor protocol versions  | Protocol version. Minor versions indicate software updates (will generally be 0). Major version 1 = Byron, 2 = Shelley |
-| K                        | `nOpt`     | `stakePoolTargetNum`                    | `optimal_pool_count` | *stakePoolTargetNum* | Target number of pools ("k"). Impacts saturation threshold, encouraging growth in number of stake pools. |
-| Influence Factor         | `a0`    | `poolPledgeInfluence`                     | `influence` | *poolPledgeInfluence* | "Influence Factor". Governs how much impact the pledge has on rewards. |
-| Min Pool Cost            |                          | `minPoolCost`            |                      |                        | Minimum Pool Cost per epoch (in lovelace). Enables pledge effect. |
-| Decentralization Param   |                          | `decentralisationParam`  |                      |                        | Level of decentralisation. Starts at 1. Block production is fully decentralised when this reaches 0. |
-| Max Block Body Size      |                          | `maxBlockBodySize`       |                      |                        | Maximum size of a block body. Limits blockchain storage size, and communication costs. |
-| Max Block Header Size    |                          | `maxBlockHeaderSize`     |                      |                        | Maximum size of the block header. Should be significantly less than the maximum block size. |
-| Max Tx Size              |                          | `maxTxSize`              |                      |                        | Maximum size of a transaction. Several transactions may be included in a block. Must be strictly less than the max. block body size. |
-| Treasury Rate            | `tau`            | `treasuryCut`                    |                      |                        | Treasury rate (0.2 = 20%). Proportion of total rewards allocated to treasury each epoch before remaining rewards are distributed to pools. |
-| Monetary Expansion       | `rho`      | `monetaryExpansion`                    |                      |                        | Monetary expansion rate per epoch. Governs the rewards that are returned from reserves to the ecosystem (treasury, stake pools and delegators). |
-| Pool Deposit             | `poolDeposit`       | `stakePoolDeposit`            |                      |                        | Pool deposit (in lovelace) |
-| Key Deposit              |                          | `keyDeposit`             |                      |                        | Deposit charged for stake keys (in Lovelace). Ensures that unused keys are returned, so freeing resources. |
-| Min Fee B                |                          | `minFeeB`                |                      |                        | Base transaction fee (in lovelace). |
-| Min Fee A                |                          | `minFeeA`                |                      |                        | Additional transaction fee per byte of data (in lovelace). |
-| Min UTxO Value           |                          | `minUTxOValue`           |                      |                        | Minimum allowed value in a UTxO. Security-related parameter used to prevent the creation of many small UTxOs that could use excessive resource to process. |
-| Extra Entropy            |                          | `extraEntropy`           |                      |                        | Should additional entropy be included in the initial phases. This provides additional certainty that the blockchain has not been compromised by the seed key holders. Redundant once the system is sufficiently decentralised. |
-| Epoch Max (eMax)         | `eMax`     | `poolRetireMaxEpoch`                   |                      |                        | Maximum number of epochs within which a pool can be announced to retire, starting from the next epoch. |
+| Common Name              | Name via Spec            | Name via `cardano-cli`  | Name via `DB-Sync`              | Name via Constitution     | Definition                                                                                                                                         | Era Added | Era Removed |
+|--------------------------|--------------------------|--------------------------|----------------------------------|----------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------|-----------|--------------|
+| Protocol Version         |                          | `protocolVersion`        | `{protocol_major, protocol_minor}` |                            | Protocol version. Minor versions indicate software updates (will generally be 0). Major version 1 = Byron, 2 = Shelley                           | Byron     | —            |
+| K                        | `nOpt`                   | `stakePoolTargetNum`     | `optimal_pool_count`            | *stakePoolTargetNum*      | Target number of pools ("k"). Impacts saturation threshold, encouraging growth in number of stake pools.                                          | Shelley   | —            |
+| Influence Factor         | `a0`                     | `poolPledgeInfluence`    | `influence`                     | *poolPledgeInfluence*     | "Influence Factor". Governs how much impact the pledge has on rewards.                                                                             | Shelley   | —            |
+| Min Pool Cost            |                          | `minPoolCost`            |                                  |                            | Minimum Pool Cost per epoch (in lovelace). Enables pledge effect.                                                                                  | Shelley   | —            |
+| Decentralization Param   |                          | `decentralisationParam`  |                                  |                            | Level of decentralisation. Starts at 1. Block production is fully decentralised when this reaches 0.                                               | Shelley   | —            |
+| Max Block Body Size      |                          | `maxBlockBodySize`       |                                  |                            | Maximum size of a block body. Limits blockchain storage size, and communication costs.                                                              | Byron     | —            |
+| Max Block Header Size    |                          | `maxBlockHeaderSize`     |                                  |                            | Maximum size of the block header. Should be significantly less than the maximum block size.                                                        | Byron     | —            |
+| Max Tx Size              |                          | `maxTxSize`              |                                  |                            | Maximum size of a transaction. Several transactions may be included in a block. Must be strictly less than the max. block body size.              | Byron     | —            |
+| Treasury Rate            | `tau`                    | `treasuryCut`            |                                  |                            | Treasury rate (0.2 = 20%). Proportion of total rewards allocated to treasury each epoch before remaining rewards are distributed to pools.        | Shelley   | —            |
+| Monetary Expansion       | `rho`                    | `monetaryExpansion`      |                                  |                            | Monetary expansion rate per epoch. Governs the rewards that are returned from reserves to the ecosystem (treasury, stake pools and delegators).   | Shelley   | —            |
+| Pool Deposit             | `poolDeposit`            | `stakePoolDeposit`       |                                  |                            | Pool deposit (in lovelace)                                                                                                                          | Shelley   | —            |
+| Key Deposit              |                          | `keyDeposit`             |                                  |                            | Deposit charged for stake keys (in Lovelace). Ensures that unused keys are returned, so freeing resources.                                         | Shelley   | —            |
+| Min Fee B                |                          | `minFeeB`                |                                  |                            | Base transaction fee (in lovelace).                                                                                                                 | Byron     | —            |
+| Min Fee A                |                          | `minFeeA`                |                                  |                            | Additional transaction fee per byte of data (in lovelace).                                                                                          | Byron     | —            |
+| Min UTxO Value           |                          | `minUTxOValue`           |                                  |                            | Minimum allowed value in a UTxO. Security-related parameter used to prevent the creation of many small UTxOs that could use excessive resource.   | Shelley   | Babbage*     |
+| Extra Entropy            |                          | `extraEntropy`           |                                  |                            | Should additional entropy be included in the initial phases. Provides certainty the chain wasn't compromised by seed holders. Redundant later.   | Byron     | Shelley      |
+| Epoch Max (eMax)         | `eMax`                   | `poolRetireMaxEpoch`     |                                  |                            | Maximum number of epochs within which a pool can be announced to retire, starting from the next epoch.                                             | Shelley   | —            |
 
 ##### Non-Updatable Parameters
 
 todo
 
-#### Alonzo Era
-
-Information based-on [CIP-0028 | Protocol Parameters (Alonzo Era)][CIP-0028].
-
-todo
-
-#### Babbage Era
-
-Information based-on [CIP-0055 | Protocol Parameters (Babbage Era)][CIP-0055].
-
-todo
-
-#### Conway Era
-
-todo
 
 ### Protocol Parameter Updates
 
@@ -103,8 +82,10 @@ It must also explain how the proposal affects the backward compatibility of exis
 
 ## Open Questions
 
-- are markdown tables the best solution?
-- should we include parameters pre-shelley?
+- [x] Are markdown tables the best solution?
+  - Probably not, a JSON representation will be provided alongside the markdown
+
+- Should we include parameters pre-shelley?
 
 ## Path to Active
 

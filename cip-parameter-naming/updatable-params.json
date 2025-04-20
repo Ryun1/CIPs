@@ -173,36 +173,6 @@
     "commonName": "",
     "specName": "",
     "cliName": "",
-    "dbSyncName": "id",
-    "constitutionName": "",
-    "definition": "",
-    "eraAdded": "",
-    "eraRemoved": ""
-  },
-  {
-    "commonName": "",
-    "specName": "",
-    "cliName": "",
-    "dbSyncName": "epoch_no",
-    "constitutionName": "",
-    "definition": "",
-    "eraAdded": "",
-    "eraRemoved": ""
-  },
-  {
-    "commonName": "",
-    "specName": "",
-    "cliName": "",
-    "dbSyncName": "nonce",
-    "constitutionName": "",
-    "definition": "",
-    "eraAdded": "",
-    "eraRemoved": ""
-  },
-  {
-    "commonName": "",
-    "specName": "",
-    "cliName": "",
     "dbSyncName": "cost_model_id",
     "constitutionName": "",
     "definition": "",

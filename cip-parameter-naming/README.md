@@ -40,7 +40,6 @@ See:
 
 
 ## Specification
-<!-- The technical specification should describe the proposed improvement in sufficient technical detail. In particular, it should provide enough information that an implementation can be performed solely on the basis of the design in the CIP. This is necessary to facilitate multiple, interoperable implementations. This must include how the CIP should be versioned, if not covered under an optional Versioning main heading. If a proposal defines structure of on-chain data it must include a CDDL schema in its specification.-->
 
 ### Definitions
 
@@ -50,10 +49,31 @@ These definitions should be maintained for future Cardano ledger eras.
 
 Information based-on [CIP-0009 | Protocol Parameters (Shelley Era)][CIP-0009].
 
-| Common Name | Name via `cardano-cli` | Name via `DB-Sync` | Name via Constitution | Definition |
-| --- | --- | --- | --- | --- |
-|  | `protocolVersion` |  |  | Protocol version. Minor versions indicate software updates (will generally be 0). Major version 1 = Byron, 2 = Shelley |
-| K | `nOpt` |  |  | Target number of pools ("k"). Impacts saturation threshold, encouraging growth in number of stake pools. |
+##### Updatable Parameters
+
+| Common Name              | Name via Spec            | Name via `cardano-cli`  | Name via `DB-Sync`  | Name via Constitution | Definition |
+|--------------------------|--------------------------|--------------------------|----------------------|------------------------|------------|
+| Protocol Version         |                          | `protocolVersion`        | `{protocol_major, protocol_minor}` | major and minor protocol versions  | Protocol version. Minor versions indicate software updates (will generally be 0). Major version 1 = Byron, 2 = Shelley |
+| K                        | `nOpt`     | `stakePoolTargetNum`                    | `optimal_pool_count` | *stakePoolTargetNum* | Target number of pools ("k"). Impacts saturation threshold, encouraging growth in number of stake pools. |
+| Influence Factor         | `a0`    | `poolPledgeInfluence`                     | `influence` | *poolPledgeInfluence* | "Influence Factor". Governs how much impact the pledge has on rewards. |
+| Min Pool Cost            |                          | `minPoolCost`            |                      |                        | Minimum Pool Cost per epoch (in lovelace). Enables pledge effect. |
+| Decentralization Param   |                          | `decentralisationParam`  |                      |                        | Level of decentralisation. Starts at 1. Block production is fully decentralised when this reaches 0. |
+| Max Block Body Size      |                          | `maxBlockBodySize`       |                      |                        | Maximum size of a block body. Limits blockchain storage size, and communication costs. |
+| Max Block Header Size    |                          | `maxBlockHeaderSize`     |                      |                        | Maximum size of the block header. Should be significantly less than the maximum block size. |
+| Max Tx Size              |                          | `maxTxSize`              |                      |                        | Maximum size of a transaction. Several transactions may be included in a block. Must be strictly less than the max. block body size. |
+| Treasury Rate            | `tau`            | `treasuryCut`                    |                      |                        | Treasury rate (0.2 = 20%). Proportion of total rewards allocated to treasury each epoch before remaining rewards are distributed to pools. |
+| Monetary Expansion       | `rho`      | `monetaryExpansion`                    |                      |                        | Monetary expansion rate per epoch. Governs the rewards that are returned from reserves to the ecosystem (treasury, stake pools and delegators). |
+| Pool Deposit             | `poolDeposit`       | `stakePoolDeposit`            |                      |                        | Pool deposit (in lovelace) |
+| Key Deposit              |                          | `keyDeposit`             |                      |                        | Deposit charged for stake keys (in Lovelace). Ensures that unused keys are returned, so freeing resources. |
+| Min Fee B                |                          | `minFeeB`                |                      |                        | Base transaction fee (in lovelace). |
+| Min Fee A                |                          | `minFeeA`                |                      |                        | Additional transaction fee per byte of data (in lovelace). |
+| Min UTxO Value           |                          | `minUTxOValue`           |                      |                        | Minimum allowed value in a UTxO. Security-related parameter used to prevent the creation of many small UTxOs that could use excessive resource to process. |
+| Extra Entropy            |                          | `extraEntropy`           |                      |                        | Should additional entropy be included in the initial phases. This provides additional certainty that the blockchain has not been compromised by the seed key holders. Redundant once the system is sufficiently decentralised. |
+| Epoch Max (eMax)         | `eMax`     | `poolRetireMaxEpoch`                   |                      |                        | Maximum number of epochs within which a pool can be announced to retire, starting from the next epoch. |
+
+##### Non-Updatable Parameters
+
+todo
 
 #### Alonzo Era
 
@@ -80,6 +100,11 @@ todo
 
 It must also explain how the proposal affects the backward compatibility of existing solutions when applicable. If the proposal responds to a CPS, the 'Rationale' section should explain how it addresses the CPS, and answer any questions that the CPS poses for potential solutions.
 -->
+
+## Open Questions
+
+- are markdown tables the best solution?
+- should we include parameters pre-shelley?
 
 ## Path to Active
 

@@ -39,27 +39,6 @@ rather than relying on a single key-holder for all decisions and changes.
 This flexibility would foster greater decentralization, improve operational resilience,
 and mitigate risks associated with single points of failure.
 
-<!-- The [current ledger design](https://github.com/IntersectMBO/cardano-ledger/blob/master/eras/conway/impl/cddl-files/conway.cddl) associates five types of credential with stake pool operators:
-- `pool_keyhash`
-- `hot_vkey`
-- `vrf_keyhash`
-- `reward_account`
-- `pool_owners` (set of `addr_keyhash`)
-
-`pool_keyhash` known as SPO cold key, is used as *the* identifier for a pool, referenced by delegators and is used to register and retire the pool.
-
-`hot_vkey` known as hot key are keys which can be rotated they are authorized by the cold key.
-
-`vrf_keyhash` / `vrf_vkey` are temporary keys which are used within blockheaders to X, they are authorized by the cold key.
-
-`reward_account` known as X, it is an account where block rewards are sent to the pool, this can be controlled by a key or script.
-
-`pool_owners` is a set of keys used to identify payment credentials associated with the SPO.
-
-- one key, one point of failure
-- scripts give a lot of flexibility - nice for governance voting -->
-
-
 ## Use cases
 <!-- A concrete set of examples written from a user's perspective, describing what and why they are trying to do. When they exist, this section should give a sense of the current alternatives and highlight why they are not suitable. -->
 
@@ -79,6 +58,12 @@ Preventing the need for trust on a single key-holder.
 ### 2. Smart Contract Stake Pools
 
 Smart contracts on Cardano allow for expressive logic to be applied to control script-based credentials.
+Being able to apply such logic to pool operations would facilitate a set of complex upcases.
+
+### 3. Less hassle when interacting with tools
+
+- colkeys are sometimes used for other governance tooling stuff
+- scripts are easy to use than getting a key out of a safe
 
 ## Goals
 <!-- A list of goals and non-goals a project is pursuing, ranked by importance. These goals should help understand the design space for the solution and what the underlying project is ultimately trying to achieve.
@@ -87,10 +72,20 @@ Goals may also contain requirements for the project. For example, they may inclu
 
 Finally, goals may also serve as evaluation metrics to assess how good a proposed solution is. -->
 
+1. Multi-party control (without sharing secret material)
+
+2. Application of smart contract logic to control
+
 ## Open Questions
 <!-- A set of questions to which any proposed solution should find an answer. Questions should help guide solutions design by highlighting some foreseen vulnerabilities or design flaws. Solutions in the form of CIP should thereby include these questions as part of their 'Rationale' section and provide an argued answer to each. -->
 
 <!-- OPTIONAL SECTIONS: see CIP-9999 > Specification > CPS > Structure table -->
+
+### 1. What is the technical uplift required to implement this within the Cardano Ledger codebase?
+
+Is the uplift so great, that it outweighs the potential benefits?
+
+2. What is the technical uplift required to implement this within supporting tooling?
 
 arguments for
 - This would align SPOs cold credentials with DRep credentials.

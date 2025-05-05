@@ -169,40 +169,40 @@
     "eraAdded": "Shelley",
     "eraRemoved": "-"
   },
+  // {
+  //   "commonName": "",
+  //   "specName": "",
+  //   "cliName": "",
+  //   "dbSyncName": "cost_model_id",
+  //   "constitutionName": "",
+  //   "definition": "",
+  //   "eraAdded": "",
+  //   "eraRemoved": ""
+  // },
   {
-    "commonName": "",
+    "commonName": "Plutus Execution Unit Prices (Memory)",
     "specName": "",
-    "cliName": "",
-    "dbSyncName": "cost_model_id",
-    "constitutionName": "",
-    "definition": "",
-    "eraAdded": "",
-    "eraRemoved": ""
-  },
-  {
-    "commonName": "",
-    "specName": "",
-    "cliName": "",
+    "cliName": "executionUnitPrices.priceMemory",
     "dbSyncName": "price_mem",
-    "constitutionName": "",
+    "constitutionName": "*executionUnitPrices[priceMemory]*",
     "definition": "",
     "eraAdded": "",
     "eraRemoved": ""
   },
   {
-    "commonName": "",
+    "commonName": "Plutus Execution Unit Price (Steps)",
     "specName": "",
-    "cliName": "",
+    "cliName": "executionUnitPrices.priceSteps",
     "dbSyncName": "price_step",
-    "constitutionName": "",
+    "constitutionName": "executionUnitPrices[priceSteps]",
     "definition": "",
     "eraAdded": "",
     "eraRemoved": ""
   },
   {
-    "commonName": "",
+    "commonName": "Maximum Transaction Plutus Execution Memory Units",
     "specName": "",
-    "cliName": "",
+    "cliName": "maxTxExecutionUnits.memory",
     "dbSyncName": "max_tx_ex_mem",
     "constitutionName": "",
     "definition": "",
@@ -210,7 +210,7 @@
     "eraRemoved": ""
   },
   {
-    "commonName": "",
+    "commonName": "Maximum Transaction Plutus Execution Steps",
     "specName": "",
     "cliName": "",
     "dbSyncName": "max_tx_ex_steps",

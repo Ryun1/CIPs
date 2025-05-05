@@ -71,6 +71,8 @@ It must also explain how the proposal affects the backward compatibility of exis
 
 - Should we include parameters pre-shelley?
 
+- How to deal with sub-parameters?
+
 ## Path to Active
 
 ### Acceptance Criteria

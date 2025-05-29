@@ -182,13 +182,12 @@
     "eraAdded": "Shelley"
   },
   {
-    "commonName": "Lovelace per UTxO Byte",
+    "commonName": "Lovelace per UTxO byte",
     "specName": "coinsPerUTxOWord",
     "genesisFileName": "lovelacePerUTxOWord",
     "cliName": "utxoCostPerByte",
     "dbSyncName": "coins_per_utxo_size",
-    "constitutionName": "*utxoCostPerByte*",
-    "definition": "Deposit charged per word of UTxO storage. Replaces Minimum UTxO Value.",
+    "definition": "Deposit charged per word of UTxO storage. Replaces Minimum UTxO Value. Implementation changes in babbage.",
     "eraAdded": "Alonzo"
   },
   {
@@ -292,158 +291,144 @@
     "eraAdded": "Alonzo"
   },
   {
-    "commonName": "",
-    "specName": "",
-    "genesisFileName": "",
-    "cliName": "",
+    "commonName": "Stake Pool Voting Threshold for Motion No Confidence",
+    "specName": "Q1",
+    "genesisFileName": "poolVotingThresholds.motionNoConfidence",
+    "cliName": "poolVotingThresholds.motionNoConfidence",
     "dbSyncName": "pvt_motion_no_confidence",
-    "constitutionName": "",
+    "constitutionName": "*pvtMotionNoConfidence*",
     "definition": "",
-    "eraAdded": "",
-    "eraRemoved": ""
+    "eraAdded": "Conway"
   },
   {
-    "commonName": "",
-    "specName": "",
-    "genesisFileName": "",
-    "cliName": "",
+    "commonName": "Stake Pool Voting Threshold for New Committee (normal state)",
+    "specName": "Q2a",
+    "genesisFileName": "poolVotingThresholds.committeeNormal",
+    "cliName": "poolVotingThresholds.committeeNormal",
     "dbSyncName": "pvt_committee_normal",
-    "constitutionName": "",
+    "constitutionName": "*pvtCommitteeNormal*",
     "definition": "",
-    "eraAdded": "",
-    "eraRemoved": ""
+    "eraAdded": "Conway"
   },
   {
-    "commonName": "",
-    "specName": "",
-    "genesisFileName": "",
-    "cliName": "",
+    "commonName": "Stake Pool Voting Threshold for New Committee (state of no-confidence)",
+    "specName": "Q2b",
+    "genesisFileName": "poolVotingThresholds.committeeNoConfidence",
+    "cliName": "poolVotingThresholds.committeeNoConfidence",
     "dbSyncName": "pvt_committee_no_confidence",
-    "constitutionName": "",
+    "constitutionName": "**pvtCommitteeNoConfidence**",
     "definition": "",
-    "eraAdded": "",
-    "eraRemoved": ""
+    "eraAdded": "Conway"
   },
   {
-    "commonName": "",
-    "specName": "",
-    "genesisFileName": "",
-    "cliName": "",
+    "commonName": "Stake Pool Voting Threshold for Hard Fork Initiation",
+    "specName": "Q4",
+    "genesisFileName": ".hardForkInitiation",
+    "cliName": "poolVotingThresholds.hardForkInitiation",
     "dbSyncName": "pvt_hard_fork_initiation",
-    "constitutionName": "",
+    "constitutionName": "*pvtHardForkInitiation*",
     "definition": "",
-    "eraAdded": "",
-    "eraRemoved": ""
+    "eraAdded": "Conway"
   },
   {
-    "commonName": "",
-    "specName": "",
-    "genesisFileName": "",
-    "cliName": "",
+    "commonName": "DRep Voting Threshold for Motion No Confidence",
+    "specName": "P1",
+    "genesisFileName": "dRepVotingThresholds.motionNoConfidence",
+    "cliName": "dRepVotingThresholds.motionNoConfidence",
     "dbSyncName": "dvt_motion_no_confidence",
-    "constitutionName": "",
+    "constitutionName": "*dvtMotionNoConfidence*",
     "definition": "",
-    "eraAdded": "",
-    "eraRemoved": ""
+    "eraAdded": "Conway"
   },
   {
-    "commonName": "",
-    "specName": "",
-    "genesisFileName": "",
-    "cliName": "",
+    "commonName": "DRep Voting Threshold for New Committee (normal state)",
+    "specName": "P2a",
+    "genesisFileName": "dRepVotingThresholds.committeeNormal",
+    "cliName": "dRepVotingThresholds.committeeNormal",
     "dbSyncName": "dvt_committee_normal",
-    "constitutionName": "",
+    "constitutionName": "*dvtCommitteeNormal*",
     "definition": "",
-    "eraAdded": "",
-    "eraRemoved": ""
+    "eraAdded": "Conway"
   },
   {
-    "commonName": "",
-    "specName": "",
-    "genesisFileName": "",
-    "cliName": "",
+    "commonName": "DRep Voting Threshold for New Committee (state of no-confidence)",
+    "specName": "P2b",
+    "genesisFileName": "dRepVotingThresholds.committeeNoConfidence",
+    "cliName": "dRepVotingThresholds.committeeNoConfidence",
     "dbSyncName": "dvt_committee_no_confidence",
-    "constitutionName": "",
+    "constitutionName": "dvtCommitteeNoConfidence",
     "definition": "",
-    "eraAdded": "",
-    "eraRemoved": ""
+    "eraAdded": "Conway"
   },
   {
-    "commonName": "",
-    "specName": "",
-    "genesisFileName": "",
-    "cliName": "",
+    "commonName": "DRep Voting Threshold for New Constitution or Guardrails Script",
+    "specName": "P3",
+    "genesisFileName": "dRepVotingThresholds.",
+    "cliName": "dRepVotingThresholds.",
     "dbSyncName": "dvt_update_to_constitution",
     "constitutionName": "",
     "definition": "",
-    "eraAdded": "",
-    "eraRemoved": ""
+    "eraAdded": "Conway"
   },
   {
-    "commonName": "",
+    "commonName": "DRep Voting Threshold for",
     "specName": "",
-    "genesisFileName": "",
-    "cliName": "",
+    "genesisFileName": "dRepVotingThresholds.",
+    "cliName": "dRepVotingThresholds.",
     "dbSyncName": "dvt_hard_fork_initiation",
     "constitutionName": "",
     "definition": "",
-    "eraAdded": "",
-    "eraRemoved": ""
+    "eraAdded": "Conway"
   },
   {
-    "commonName": "",
+    "commonName": "DRep Voting Threshold for",
     "specName": "",
-    "genesisFileName": "",
-    "cliName": "",
+    "genesisFileName": "dRepVotingThresholds.",
+    "cliName": "dRepVotingThresholds.",
     "dbSyncName": "dvt_p_p_network_group",
     "constitutionName": "",
     "definition": "",
-    "eraAdded": "",
-    "eraRemoved": ""
+    "eraAdded": "Conway"
   },
   {
-    "commonName": "",
+    "commonName": "DRep Voting Threshold for",
     "specName": "",
-    "genesisFileName": "",
-    "cliName": "",
+    "genesisFileName": "dRepVotingThresholds.",
+    "cliName": "dRepVotingThresholds.",
     "dbSyncName": "dvt_p_p_economic_group",
     "constitutionName": "",
     "definition": "",
-    "eraAdded": "",
-    "eraRemoved": ""
+    "eraAdded": "Conway"
   },
   {
-    "commonName": "",
+    "commonName": "DRep Voting Threshold for",
     "specName": "",
-    "genesisFileName": "",
-    "cliName": "",
+    "genesisFileName": "dRepVotingThresholds.",
+    "cliName": "dRepVotingThresholds.",
     "dbSyncName": "dvt_p_p_technical_group",
     "constitutionName": "",
     "definition": "",
-    "eraAdded": "",
-    "eraRemoved": ""
+    "eraAdded": "Conway"
   },
   {
-    "commonName": "",
+    "commonName": "DRep Voting Threshold for",
     "specName": "",
-    "genesisFileName": "",
-    "cliName": "",
+    "genesisFileName": "dRepVotingThresholds.",
+    "cliName": "dRepVotingThresholds.",
     "dbSyncName": "dvt_p_p_gov_group",
     "constitutionName": "",
     "definition": "",
-    "eraAdded": "",
-    "eraRemoved": ""
+    "eraAdded": "Conway"
   },
   {
-    "commonName": "",
+    "commonName": "DRep Voting Threshold for",
     "specName": "",
-    "genesisFileName": "",
-    "cliName": "",
+    "genesisFileName": "dRepVotingThresholds.",
+    "cliName": "dRepVotingThresholds.",
     "dbSyncName": "dvt_treasury_withdrawal",
     "constitutionName": "",
     "definition": "",
-    "eraAdded": "",
-    "eraRemoved": ""
+    "eraAdded": "Conway"
   },
   {
     "commonName": "",
@@ -453,8 +438,7 @@
     "dbSyncName": "committee_min_size",
     "constitutionName": "",
     "definition": "",
-    "eraAdded": "",
-    "eraRemoved": ""
+    "eraAdded": "Conway"
   },
   {
     "commonName": "",
@@ -464,8 +448,7 @@
     "dbSyncName": "committee_max_term_length",
     "constitutionName": "",
     "definition": "",
-    "eraAdded": "",
-    "eraRemoved": ""
+    "eraAdded": "Conway"
   },
   {
     "commonName": "",
@@ -475,8 +458,7 @@
     "dbSyncName": "gov_action_lifetime",
     "constitutionName": "",
     "definition": "",
-    "eraAdded": "",
-    "eraRemoved": ""
+    "eraAdded": "Conway"
   },
   {
     "commonName": "",
@@ -486,8 +468,7 @@
     "dbSyncName": "gov_action_deposit",
     "constitutionName": "",
     "definition": "",
-    "eraAdded": "",
-    "eraRemoved": ""
+    "eraAdded": "Conway"
   },
   {
     "commonName": "",
@@ -497,8 +478,7 @@
     "dbSyncName": "drep_deposit",
     "constitutionName": "",
     "definition": "",
-    "eraAdded": "",
-    "eraRemoved": ""
+    "eraAdded": "Conway"
   },
   {
     "commonName": "",
@@ -508,8 +488,7 @@
     "dbSyncName": "drep_activity",
     "constitutionName": "",
     "definition": "",
-    "eraAdded": "",
-    "eraRemoved": ""
+    "eraAdded": "Conway"
   },
   {
     "commonName": "",
@@ -519,8 +498,7 @@
     "dbSyncName": "pvtpp_security_group",
     "constitutionName": "",
     "definition": "",
-    "eraAdded": "",
-    "eraRemoved": ""
+    "eraAdded": "Conway"
   },
   {
     "commonName": "",
@@ -530,7 +508,6 @@
     "dbSyncName": "min_fee_ref_script_cost_per_byte",
     "constitutionName": "",
     "definition": "",
-    "eraAdded": "",
-    "eraRemoved": ""
+    "eraAdded": "Conway"
   }
 ]

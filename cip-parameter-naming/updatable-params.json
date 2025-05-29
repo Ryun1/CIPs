@@ -2,6 +2,7 @@
   {
     "commonName": "Protocol Major Version",
     "specName": "pv",
+    "genesisFileName": "",
     "cliName": "protocolVersion.major",
     "dbSyncName": "protocol_major",
     "constitutionName": "major protocol version",
@@ -12,6 +13,7 @@
   {
     "commonName": "Protocol Minor Version",
     "specName": "pv",
+    "genesisFileName": "",
     "cliName": "protocolVersion.minor",
     "dbSyncName": "protocol_minor",
     "constitutionName": "minor protocol version",
@@ -22,6 +24,7 @@
   {
     "commonName": "K",
     "specName": "nOpt",
+    "genesisFileName": "",
     "cliName": "stakePoolTargetNum",
     "dbSyncName": "optimal_pool_count",
     "constitutionName": "*stakePoolTargetNum*",
@@ -32,6 +35,7 @@
   {
     "commonName": "Influence Factor",
     "specName": "a0",
+    "genesisFileName": "",
     "cliName": "poolPledgeInfluence",
     "dbSyncName": "influence",
     "constitutionName": "*poolPledgeInfluence*",
@@ -42,6 +46,7 @@
   {
     "commonName": "Minimum Pool Cost",
     "specName": "minPoolCost",
+    "genesisFileName": "",
     "cliName": "minPoolCost",
     "dbSyncName": "min_pool_cost",
     "constitutionName": "*minPoolCost*",
@@ -52,6 +57,7 @@
   {
     "commonName": "Decentralisation Parameter",
     "specName": "d",
+    "genesisFileName": "",
     "cliName": "N/A",
     "dbSyncName": "decentralisation",
     "constitutionName": "N/A",
@@ -62,6 +68,7 @@
   {
     "commonName": "Maximum Block Body Size",
     "specName": "maxBlockSize",
+    "genesisFileName": "",
     "cliName": "maxBlockBodySize",
     "dbSyncName": "max_block_size",
     "constitutionName": "*maxBlockBodySize*",
@@ -72,6 +79,7 @@
   {
     "commonName": "Maximum Block Header Size",
     "specName": "maxHeaderSize",
+    "genesisFileName": "",
     "cliName": "maxBlockHeaderSize",
     "dbSyncName": "max_bh_size",
     "constitutionName": "maxBlockHeaderSize",
@@ -82,6 +90,7 @@
   {
     "commonName": "Maximum Transaction Size",
     "specName": "maxTxSize",
+    "genesisFileName": "",
     "cliName": "maxTxSize",
     "dbSyncName": "max_tx_size",
     "constitutionName": "*maxTxSize*",
@@ -92,6 +101,7 @@
   {
     "commonName": "Treasury Expansion Rate",
     "specName": "tau (τ)",
+    "genesisFileName": "",
     "cliName": "treasuryCut",
     "dbSyncName": "treasury_growth_rate",
     "constitutionName": "*treasuryCut*",
@@ -102,6 +112,7 @@
   {
     "commonName": "Monetary Expansion Rate",
     "specName": "rho (ρ)",
+    "genesisFileName": "",
     "cliName": "monetaryExpansion",
     "dbSyncName": "monetary_expand_rate",
     "constitutionName": "*monetaryExpansion*",
@@ -112,6 +123,7 @@
   {
     "commonName": "Stake Pool Registration Deposit",
     "specName": "poolDeposit",
+    "genesisFileName": "",
     "cliName": "stakePoolDeposit",
     "dbSyncName": "pool_deposit",
     "constitutionName": "*stakePoolDeposit*",
@@ -122,6 +134,7 @@
   {
     "commonName": "Stake Credential Deposit",
     "specName": "keyDeposit",
+    "genesisFileName": "",
     "cliName": "stakeAddressDeposit",
     "dbSyncName": "key_deposit",
     "constitutionName": "*stakeAddressDeposit*",
@@ -132,6 +145,7 @@
   {
     "commonName": "Minimum Fee A (cost per Byte)",
     "specName": "a",
+    "genesisFileName": "",
     "cliName": "txFeePerByte",
     "dbSyncName": "min_fee_a",
     "constitutionName": "*txFeePerByte*",
@@ -142,6 +156,7 @@
   {
     "commonName": "Minimum Fee B (fixed fee)",
     "specName": "b",
+    "genesisFileName": "",
     "cliName": "txFeeFixed",
     "dbSyncName": "min_fee_b",
     "constitutionName": "*txFeeFixed*",
@@ -152,6 +167,7 @@
   {
     "commonName": "Minimum UTxO Value",
     "specName": "minUTxOValue",
+    "genesisFileName": "",
     "cliName": "N/A",
     "dbSyncName": "min_utxo_value",
     "constitutionName": "N/A",
@@ -162,6 +178,7 @@
   {
     "commonName": "Extra Entropy",
     "specName": "extraEntropy",
+    "genesisFileName": "",
     "cliName": "N/A",
     "dbSyncName": "extra_entropy",
     "constitutionName": "N/A",
@@ -172,6 +189,7 @@
   {
     "commonName": "Maximum Epochs for Pool Retirement",
     "specName": "Emax",
+    "genesisFileName": "",
     "cliName": "poolRetireMaxEpoch",
     "dbSyncName": "max_epoch",
     "constitutionName": "*poolRetireMaxEpoch*",
@@ -179,9 +197,10 @@
     "eraAdded": "Shelley",
     "eraRemoved": "-"
   },
-    {
+  {
     "commonName": "lovelacePerUTxOWord ",
     "specName": "",
+    "genesisFileName": "",
     "cliName": "utxoCostPerByte",
     "dbSyncName": "coins_per_utxo_size",
     "constitutionName": "*utxoCostPerByte*",
@@ -192,6 +211,7 @@
   {
     "commonName": "Plutus Execution Unit Prices (Memory)",
     "specName": "",
+    "genesisFileName": "",
     "cliName": "executionUnitPrices.priceMemory",
     "dbSyncName": "price_mem",
     "constitutionName": "*executionUnitPrices[priceMemory]*",
@@ -202,6 +222,7 @@
   {
     "commonName": "Plutus Execution Unit Price (Steps)",
     "specName": "",
+    "genesisFileName": "",
     "cliName": "executionUnitPrices.priceSteps",
     "dbSyncName": "price_step",
     "constitutionName": "executionUnitPrices[priceSteps]",
@@ -212,6 +233,7 @@
   {
     "commonName": "Maximum Transaction Plutus Execution Memory Units",
     "specName": "",
+    "genesisFileName": "",
     "cliName": "maxTxExecutionUnits.memory",
     "dbSyncName": "max_tx_ex_mem",
     "constitutionName": "",
@@ -222,6 +244,7 @@
   {
     "commonName": "Maximum Transaction Plutus Execution Steps",
     "specName": "",
+    "genesisFileName": "",
     "cliName": "",
     "dbSyncName": "max_tx_ex_steps",
     "constitutionName": "",
@@ -232,6 +255,7 @@
   {
     "commonName": "",
     "specName": "",
+    "genesisFileName": "",
     "cliName": "",
     "dbSyncName": "max_block_ex_mem",
     "constitutionName": "",
@@ -242,6 +266,7 @@
   {
     "commonName": "",
     "specName": "",
+    "genesisFileName": "",
     "cliName": "",
     "dbSyncName": "max_block_ex_steps",
     "constitutionName": "",
@@ -252,6 +277,7 @@
   {
     "commonName": "",
     "specName": "",
+    "genesisFileName": "",
     "cliName": "",
     "dbSyncName": "max_val_size",
     "constitutionName": "",
@@ -262,6 +288,7 @@
   {
     "commonName": "",
     "specName": "",
+    "genesisFileName": "",
     "cliName": "",
     "dbSyncName": "collateral_percent",
     "constitutionName": "",
@@ -272,6 +299,7 @@
   {
     "commonName": "",
     "specName": "",
+    "genesisFileName": "",
     "cliName": "",
     "dbSyncName": "max_collateral_inputs",
     "constitutionName": "",
@@ -282,6 +310,7 @@
   {
     "commonName": "",
     "specName": "",
+    "genesisFileName": "",
     "cliName": "",
     "dbSyncName": "block_id",
     "constitutionName": "",
@@ -292,6 +321,7 @@
   {
     "commonName": "",
     "specName": "",
+    "genesisFileName": "",
     "cliName": "",
     "dbSyncName": "pvt_motion_no_confidence",
     "constitutionName": "",
@@ -302,6 +332,7 @@
   {
     "commonName": "",
     "specName": "",
+    "genesisFileName": "",
     "cliName": "",
     "dbSyncName": "pvt_committee_normal",
     "constitutionName": "",
@@ -312,6 +343,7 @@
   {
     "commonName": "",
     "specName": "",
+    "genesisFileName": "",
     "cliName": "",
     "dbSyncName": "pvt_committee_no_confidence",
     "constitutionName": "",
@@ -322,6 +354,7 @@
   {
     "commonName": "",
     "specName": "",
+    "genesisFileName": "",
     "cliName": "",
     "dbSyncName": "pvt_hard_fork_initiation",
     "constitutionName": "",
@@ -332,6 +365,7 @@
   {
     "commonName": "",
     "specName": "",
+    "genesisFileName": "",
     "cliName": "",
     "dbSyncName": "dvt_motion_no_confidence",
     "constitutionName": "",
@@ -342,6 +376,7 @@
   {
     "commonName": "",
     "specName": "",
+    "genesisFileName": "",
     "cliName": "",
     "dbSyncName": "dvt_committee_normal",
     "constitutionName": "",
@@ -352,6 +387,7 @@
   {
     "commonName": "",
     "specName": "",
+    "genesisFileName": "",
     "cliName": "",
     "dbSyncName": "dvt_committee_no_confidence",
     "constitutionName": "",
@@ -362,6 +398,7 @@
   {
     "commonName": "",
     "specName": "",
+    "genesisFileName": "",
     "cliName": "",
     "dbSyncName": "dvt_update_to_constitution",
     "constitutionName": "",
@@ -372,6 +409,7 @@
   {
     "commonName": "",
     "specName": "",
+    "genesisFileName": "",
     "cliName": "",
     "dbSyncName": "dvt_hard_fork_initiation",
     "constitutionName": "",
@@ -382,6 +420,7 @@
   {
     "commonName": "",
     "specName": "",
+    "genesisFileName": "",
     "cliName": "",
     "dbSyncName": "dvt_p_p_network_group",
     "constitutionName": "",
@@ -392,6 +431,7 @@
   {
     "commonName": "",
     "specName": "",
+    "genesisFileName": "",
     "cliName": "",
     "dbSyncName": "dvt_p_p_economic_group",
     "constitutionName": "",
@@ -402,6 +442,7 @@
   {
     "commonName": "",
     "specName": "",
+    "genesisFileName": "",
     "cliName": "",
     "dbSyncName": "dvt_p_p_technical_group",
     "constitutionName": "",
@@ -412,6 +453,7 @@
   {
     "commonName": "",
     "specName": "",
+    "genesisFileName": "",
     "cliName": "",
     "dbSyncName": "dvt_p_p_gov_group",
     "constitutionName": "",
@@ -422,6 +464,7 @@
   {
     "commonName": "",
     "specName": "",
+    "genesisFileName": "",
     "cliName": "",
     "dbSyncName": "dvt_treasury_withdrawal",
     "constitutionName": "",
@@ -432,6 +475,7 @@
   {
     "commonName": "",
     "specName": "",
+    "genesisFileName": "",
     "cliName": "",
     "dbSyncName": "committee_min_size",
     "constitutionName": "",
@@ -442,6 +486,7 @@
   {
     "commonName": "",
     "specName": "",
+    "genesisFileName": "",
     "cliName": "",
     "dbSyncName": "committee_max_term_length",
     "constitutionName": "",
@@ -452,6 +497,7 @@
   {
     "commonName": "",
     "specName": "",
+    "genesisFileName": "",
     "cliName": "",
     "dbSyncName": "gov_action_lifetime",
     "constitutionName": "",
@@ -462,6 +508,7 @@
   {
     "commonName": "",
     "specName": "",
+    "genesisFileName": "",
     "cliName": "",
     "dbSyncName": "gov_action_deposit",
     "constitutionName": "",
@@ -472,6 +519,7 @@
   {
     "commonName": "",
     "specName": "",
+    "genesisFileName": "",
     "cliName": "",
     "dbSyncName": "drep_deposit",
     "constitutionName": "",
@@ -482,6 +530,7 @@
   {
     "commonName": "",
     "specName": "",
+    "genesisFileName": "",
     "cliName": "",
     "dbSyncName": "drep_activity",
     "constitutionName": "",
@@ -492,6 +541,7 @@
   {
     "commonName": "",
     "specName": "",
+    "genesisFileName": "",
     "cliName": "",
     "dbSyncName": "pvtpp_security_group",
     "constitutionName": "",
@@ -502,6 +552,7 @@
   {
     "commonName": "",
     "specName": "",
+    "genesisFileName": "",
     "cliName": "",
     "dbSyncName": "min_fee_ref_script_cost_per_byte",
     "constitutionName": "",

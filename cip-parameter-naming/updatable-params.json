@@ -2,63 +2,58 @@
   {
     "commonName": "Protocol Major Version",
     "specName": "pv",
-    "genesisFileName": "",
+    "genesisFileName": "protocolVersion.major",
     "cliName": "protocolVersion.major",
     "dbSyncName": "protocol_major",
     "constitutionName": "major protocol version",
     "definition": "todo",
-    "eraAdded": "Byron",
-    "eraRemoved": "-"
+    "eraAdded": "Shelley"
   },
   {
     "commonName": "Protocol Minor Version",
     "specName": "pv",
-    "genesisFileName": "",
+    "genesisFileName": "protocolVersion.minor",
     "cliName": "protocolVersion.minor",
     "dbSyncName": "protocol_minor",
     "constitutionName": "minor protocol version",
     "definition": "todo",
-    "eraAdded": "Byron",
-    "eraRemoved": "-"
+    "eraAdded": "Shelley"
   },
   {
+    // todo check Byron spec
     "commonName": "K",
     "specName": "nOpt",
-    "genesisFileName": "",
+    "genesisFileName": "k in byron, nOpt in shelley",
     "cliName": "stakePoolTargetNum",
     "dbSyncName": "optimal_pool_count",
     "constitutionName": "*stakePoolTargetNum*",
     "definition": "Target number of pools. Impacts saturation threshold, encouraging growth in number of stake pools.",
-    "eraAdded": "Shelley",
-    "eraRemoved": "-"
+    "eraAdded": "Byron"
   },
   {
     "commonName": "Influence Factor",
     "specName": "a0",
-    "genesisFileName": "",
+    "genesisFileName": "a0",
     "cliName": "poolPledgeInfluence",
     "dbSyncName": "influence",
     "constitutionName": "*poolPledgeInfluence*",
     "definition": "Influence Factor governs how much impact the pledge has on rewards.",
-    "eraAdded": "Shelley",
-    "eraRemoved": "-"
+    "eraAdded": "Shelley"
   },
   {
     "commonName": "Minimum Pool Cost",
     "specName": "minPoolCost",
-    "genesisFileName": "",
+    "genesisFileName": "minPoolCost",
     "cliName": "minPoolCost",
     "dbSyncName": "min_pool_cost",
     "constitutionName": "*minPoolCost*",
     "definition": "Minimum Pool Cost per epoch (in lovelace). Enables pledge effect.",
-    "eraAdded": "Shelley",
-    "eraRemoved": "-"
+    "eraAdded": "Shelley"
   },
   {
     "commonName": "Decentralisation Parameter",
     "specName": "d",
-    "genesisFileName": "",
-    "cliName": "N/A",
+    "genesisFileName": "decentralisationParam",
     "dbSyncName": "decentralisation",
     "constitutionName": "N/A",
     "definition": "Level of decentralisation.",
@@ -68,107 +63,98 @@
   {
     "commonName": "Maximum Block Body Size",
     "specName": "maxBlockSize",
-    "genesisFileName": "",
+    "genesisFileName": "maxBlockBodySize",
     "cliName": "maxBlockBodySize",
     "dbSyncName": "max_block_size",
     "constitutionName": "*maxBlockBodySize*",
     "definition": "Maximum size of a block body. Limits blockchain storage size, and communication costs.",
-    "eraAdded": "Byron",
-    "eraRemoved": "-"
+    "eraAdded": "Byron"
   },
   {
+        // todo different names in different genesis files
     "commonName": "Maximum Block Header Size",
     "specName": "maxHeaderSize",
-    "genesisFileName": "",
+    "genesisFileName": "maxBlockHeaderSize",
     "cliName": "maxBlockHeaderSize",
     "dbSyncName": "max_bh_size",
     "constitutionName": "maxBlockHeaderSize",
     "definition": "Maximum size of the block header. Should be significantly less than the maximum block size.",
-    "eraAdded": "Byron",
-    "eraRemoved": "-"
+    "eraAdded": "Byron"
   },
   {
     "commonName": "Maximum Transaction Size",
     "specName": "maxTxSize",
-    "genesisFileName": "",
+    "genesisFileName": "maxTxSize",
     "cliName": "maxTxSize",
     "dbSyncName": "max_tx_size",
     "constitutionName": "*maxTxSize*",
     "definition": "Maximum size of a transaction. Several transactions may be included in a block. Must be strictly less than the max. block body size.",
-    "eraAdded": "Byron",
-    "eraRemoved": "-"
+    "eraAdded": "Byron"
   },
   {
     "commonName": "Treasury Expansion Rate",
     "specName": "tau (τ)",
-    "genesisFileName": "",
+    "genesisFileName": "tau",
     "cliName": "treasuryCut",
     "dbSyncName": "treasury_growth_rate",
     "constitutionName": "*treasuryCut*",
     "definition": "Treasury rate. Proportion of total rewards allocated to treasury each epoch before remaining rewards are distributed to pools.",
-    "eraAdded": "Shelley",
-    "eraRemoved": "-"
+    "eraAdded": "Shelley"
   },
   {
     "commonName": "Monetary Expansion Rate",
     "specName": "rho (ρ)",
-    "genesisFileName": "",
+    "genesisFileName": "rho",
     "cliName": "monetaryExpansion",
     "dbSyncName": "monetary_expand_rate",
     "constitutionName": "*monetaryExpansion*",
     "definition": "Monetary expansion rate per epoch. Governs the rewards that are returned from reserves to the ecosystem (treasury, stake pools and delegators).",
-    "eraAdded": "Shelley",
-    "eraRemoved": "-"
+    "eraAdded": "Shelley"
   },
   {
     "commonName": "Stake Pool Registration Deposit",
     "specName": "poolDeposit",
-    "genesisFileName": "",
+    "genesisFileName": "poolDeposit",
     "cliName": "stakePoolDeposit",
     "dbSyncName": "pool_deposit",
     "constitutionName": "*stakePoolDeposit*",
     "definition": "Stake pool registration deposit amount (in Lovelace).",
-    "eraAdded": "Shelley",
-    "eraRemoved": "-"
+    "eraAdded": "Shelley"
   },
   {
     "commonName": "Stake Credential Deposit",
     "specName": "keyDeposit",
-    "genesisFileName": "",
+    "genesisFileName": "keyDeposit",
     "cliName": "stakeAddressDeposit",
     "dbSyncName": "key_deposit",
     "constitutionName": "*stakeAddressDeposit*",
     "definition": "Deposit charged for stake credentials (in Lovelace). Ensures that unused keys are returned, so freeing resources.",
-    "eraAdded": "Shelley",
-    "eraRemoved": "-"
+    "eraAdded": "Shelley"
   },
   {
     "commonName": "Minimum Fee A (cost per Byte)",
     "specName": "a",
-    "genesisFileName": "",
+    "genesisFileName": "minFeeA",
     "cliName": "txFeePerByte",
     "dbSyncName": "min_fee_a",
     "constitutionName": "*txFeePerByte*",
     "definition": "Additional transaction fee per byte of data (in lovelace).",
-    "eraAdded": "Shelley",
-    "eraRemoved": "-"
+    "eraAdded": "Shelley"
   },
   {
     "commonName": "Minimum Fee B (fixed fee)",
     "specName": "b",
-    "genesisFileName": "",
+    "genesisFileName": "minFeeB",
     "cliName": "txFeeFixed",
     "dbSyncName": "min_fee_b",
     "constitutionName": "*txFeeFixed*",
     "definition": "Minimum transaction fee constant (in lovelace).",
-    "eraAdded": "Shelley",
-    "eraRemoved": "-"
+    "eraAdded": "Shelley"
   },
   {
     "commonName": "Minimum UTxO Value",
     "specName": "minUTxOValue",
-    "genesisFileName": "",
-    "cliName": "N/A",
+    "genesisFileName": "minUTxOValue",
     "dbSyncName": "min_utxo_value",
     "constitutionName": "N/A",
     "definition": "Minimum allowed value in a UTxO. Security-related parameter used to prevent the creation of many small UTxOs that could use excessive resource. Replaced by lovelacePerUTxOWord.",
@@ -178,8 +164,7 @@
   {
     "commonName": "Extra Entropy",
     "specName": "extraEntropy",
-    "genesisFileName": "",
-    "cliName": "N/A",
+    "genesisFileName": "extraEntropy",
     "dbSyncName": "extra_entropy",
     "constitutionName": "N/A",
     "definition": "Should additional entropy be included in the initial phases. Provides certainty the chain wasn't compromised by seed holders. Redundant later.",
@@ -189,68 +174,62 @@
   {
     "commonName": "Maximum Epochs for Pool Retirement",
     "specName": "Emax",
-    "genesisFileName": "",
+    "genesisFileName": "eMax",
     "cliName": "poolRetireMaxEpoch",
     "dbSyncName": "max_epoch",
     "constitutionName": "*poolRetireMaxEpoch*",
     "definition": "Maximum number of epochs within which a pool can be announced to retire, starting from the next epoch.",
-    "eraAdded": "Shelley",
-    "eraRemoved": "-"
+    "eraAdded": "Shelley"
   },
   {
-    "commonName": "lovelacePerUTxOWord ",
-    "specName": "",
-    "genesisFileName": "",
+    "commonName": "Lovelace per UTxO Byte",
+    "specName": "coinsPerUTxOWord",
+    "genesisFileName": "lovelacePerUTxOWord",
     "cliName": "utxoCostPerByte",
     "dbSyncName": "coins_per_utxo_size",
     "constitutionName": "*utxoCostPerByte*",
-    "definition": "",
-    "eraAdded": "Alonzo",
-    "eraRemoved": "-"
+    "definition": "Deposit charged per word of UTxO storage. Replaces Minimum UTxO Value.",
+    "eraAdded": "Alonzo"
   },
   {
-    "commonName": "Plutus Execution Unit Prices (Memory)",
-    "specName": "",
-    "genesisFileName": "",
+    "commonName": "Plutus Execution Unit Price (Memory)",
+    "specName": "prices todo",
+    "genesisFileName": "executionPrices.prMem",
     "cliName": "executionUnitPrices.priceMemory",
     "dbSyncName": "price_mem",
     "constitutionName": "*executionUnitPrices[priceMemory]*",
-    "definition": "",
-    "eraAdded": "Alonzo",
-    "eraRemoved": ""
+    "definition": "Fee per Plutus execution per memory unit.",
+    "eraAdded": "Alonzo"
   },
   {
     "commonName": "Plutus Execution Unit Price (Steps)",
-    "specName": "",
-    "genesisFileName": "",
+    "specName": "prices todo",
+    "genesisFileName": "executionPrices.prSteps",
     "cliName": "executionUnitPrices.priceSteps",
     "dbSyncName": "price_step",
-    "constitutionName": "executionUnitPrices[priceSteps]",
-    "definition": "",
-    "eraAdded": "Alonzo",
-    "eraRemoved": ""
+    "constitutionName": "*executionUnitPrices[priceSteps]*",
+    "definition": "Fee per Plutus execution per step.",
+    "eraAdded": "Alonzo"
   },
   {
     "commonName": "Maximum Transaction Plutus Execution Memory Units",
-    "specName": "",
-    "genesisFileName": "",
+    "specName": "maxTxExUnits",
+    "genesisFileName": "maxTxExUnits.exUnitsMem",
     "cliName": "maxTxExecutionUnits.memory",
     "dbSyncName": "max_tx_ex_mem",
-    "constitutionName": "",
-    "definition": "",
-    "eraAdded": "",
-    "eraRemoved": ""
+    "constitutionName": "*maxTxExecutionUnits[steps]*",
+    "definition": "Maximum number of memory units in a single transaction.",
+    "eraAdded": "Alonzo"
   },
   {
     "commonName": "Maximum Transaction Plutus Execution Steps",
-    "specName": "",
-    "genesisFileName": "",
+    "specName": "maxTxExUnits",
+    "genesisFileName": "maxTxExUnits.exUnitsSteps",
     "cliName": "",
     "dbSyncName": "max_tx_ex_steps",
     "constitutionName": "",
-    "definition": "",
-    "eraAdded": "",
-    "eraRemoved": ""
+    "definition": "Maximum number of steps units in a single transaction.",
+    "eraAdded": "Alonzo"
   },
   {
     "commonName": "",
@@ -260,8 +239,7 @@
     "dbSyncName": "max_block_ex_mem",
     "constitutionName": "",
     "definition": "",
-    "eraAdded": "",
-    "eraRemoved": ""
+    "eraAdded": "Alonzo"
   },
   {
     "commonName": "",

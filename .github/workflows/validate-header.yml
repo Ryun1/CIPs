@@ -1,0 +1,24 @@
+name: Validate Markdown Header
+
+on:
+  pull_request:
+    paths:
+      - '**.md'
+
+jobs:
+  check-markdown-header:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Get changed markdown files
+        id: changed-files
+        run: |
+          echo "FILES=$(git diff --name-only HEAD^ HEAD -- '*.md' | jq -R -s -c 'split("\n")[:-1]')" >> $GITHUB_ENV
+
+      - name: Run Markdown Header Validation Script
+        run: python3 scripts/validate_markdown_header.py
+        shell: bash

@@ -4,10 +4,10 @@ Title: Governance Polling
 Category: Tools
 Status: Proposed
 Authors:
-    - Ryan Williams <ryan.williams@intersectmbo.org>
+  - Ryan Williams <ryan.williams@intersectmbo.org>
 Implementors: []
 Discussions:
-    - https://github.com/cardano-foundation/CIPs/pull/?
+  - https://github.com/cardano-foundation/CIPs/pull/?
 Created: 2025-03-26
 License: CC-BY-4.0
 ---
@@ -30,11 +30,18 @@ which can be used to inform the creation of fine-tuned governance actions.
 
 ### Limited Scope of governance actions
 
-On-chain governance decisions via CIP-1694 are limited to a strict set of [governance actions](https://github.com/cardano-foundation/CIPs/blob/master/CIP-1694/README.md#governance-actions), with a current high barrier to entry of one hundred thousand ada.
+On-chain governance decisions via CIP-1694 are limited to a strict set of [governance actions](https://github.com/cardano-foundation/CIPs/blob/master/CIP-1694/README.md#governance-actions),
+with a current high barrier to entry of one hundred thousand ada.
 On-chain governance gives path for iteration of complex governance actions,
 such as an election of new constitutional committee or a budget process prior to treasury withdrawal(s).
 
 - hard to add new types of governance action
+
+### Clear need for pre-on-chain-governance voting
+
+- budget processes
+- CC elections
+- other stuff
 
 ### Lots of existing tooling but not standardized
 

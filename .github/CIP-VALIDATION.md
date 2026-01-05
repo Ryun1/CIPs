@@ -1,0 +1,82 @@
+# CIP Validation Rules
+
+This document describes all validation rules applied to Cardano Improvement Proposal (CIP) documents.
+
+These validations are run automatically via Github workflow using [`/scripts/validate-cip.py`](./scripts/validate-cip.py).
+
+These attempt to codify the guidance described within [CIP-0001 | CIP Process](../CIP-0001/README.md).
+
+## File-Level Validations
+
+| Validation | Description |
+| ---------- | ----------- |
+| File path | Must be in a `CIP-*` directory |
+| Line endings | Must use UNIX line endings (LF), not Windows (CRLF) or old Mac (CR) |
+| Frontmatter | Must have valid YAML frontmatter between `---` delimiters |
+| No H1 headings | H1 (`#`) headings are not allowed in the document body |
+
+## Header Field Validations
+
+All 9 required fields must appear in order. The `Solution-To` field is optional. No other fields are allowed.
+
+| Field | Order | Required? | Validation Rules |
+| ----- | ----- | --------- | ---------------- |
+| **CIP** | 1 | Yes | Positive integer (`1`, `42`) or `?`/`??`/etc. for unassigned. No leading zeros. |
+| **Title** | 2 | Yes | 1-100 characters, no backticks (`` ` ``) |
+| **Category** | 3 | Yes | One of: `Meta`, `Wallets`, `Tokens`, `Metadata`, `Tools`, `Plutus`, `Ledger`, `Consensus`, `Network`, `?` |
+| **Status** | 4 | Yes | `Proposed`, `Active`, or `Inactive` (optionally with reason, e.g., `Inactive (Superseded)`) |
+| **Authors** | 5 | Yes | Non-empty list, each entry: `Name <email>` |
+| **Implementors** | 6 | Yes | List of strings, `[]` if no implementor yet, or `N/A` when not applicable |
+| **Discussions** | 7 | Yes | Non-empty list, each entry: `Label: URL` |
+| **Created** | 8 | Yes | Date in `YYYY-MM-DD` format |
+| **License** | 9 | Yes | `CC-BY-4.0` or `Apache-2.0` |
+| **Solution-To** | (after License if present) | No | Non-empty list of bare CPS references like `CPS-0001` (or `CPS-0001?` for a CPS still in PR). |
+
+## CIP / CPS Label Validation
+
+For the **Discussions** field,
+when an entry label matches the `CIP-NNNN` or `CPS-NNNN` pattern,
+extra validation applies:
+
+| Rule | Description |
+| ---- | ----------- |
+| GitHub URL required | Must be `https://github.com/cardano-foundation/CIPs/...` |
+| Valid URL types | `/pull/NNN` (PR) or `/tree/{branch}/{CIP\|CPS}-NNNN` or `/blob/{branch}/{CIP\|CPS}-NNNN` (merged) |
+| `?` suffix for PRs | `CIP-0030?` / `CPS-0010?` required when linking to a pull request (candidate) |
+| No `?` for merged | `CIP-0030` (without `?`) required when linking to a merged document |
+
+Non-CIP/CPS labels (e.g., `Forum Post`, `Pull Request`) are allowed with any valid URL.
+
+## Required Sections (H2 Headers)
+
+The following sections must exist in this order with **exact capitalization**.
+
+**No other H2 sections are allowed** except the optional sections listed below.
+
+| Order | Section |
+| ----- | ------- |
+| 1 | `Abstract` |
+| 2 | `Motivation: why is this CIP necessary?` |
+| 3 | `Specification` |
+| 4 | `Rationale: how does this CIP achieve its goals?` |
+| 5 | `Path to Active` |
+| 6 | `Copyright` |
+
+### Required Path to Active Subsections (H3)
+
+Under `Path to Active`, the following H3 subsections are required:
+
+- `Acceptance Criteria`
+- `Implementation Plan`
+
+## Optional Sections
+
+The following H2 sections are allowed with exact capitalization.
+They **must** appear after `Path to Active` and before `Copyright`:
+
+- `Versioning`
+- `References`
+- `Appendix` / `Appendices`
+- `Acknowledgments` / `Acknowledgements`
+
+Optional sections appearing before any required section (other than `Copyright`) will cause validation to fail.

@@ -166,10 +166,15 @@ def validate_header(frontmatter: Dict, doc_type: str) -> List[str]:
     
     if 'Created' in frontmatter:
         created = frontmatter['Created']
-        if not isinstance(created, str):
-            errors.append("'Created' field must be a string")
-        elif not re.match(r'^\d{4}-\d{2}-\d{2}$', created):
-            errors.append(f"'Created' field must be in YYYY-MM-DD format, got: {created}")
+        # PyYAML may parse dates as date objects, so convert to string for validation
+        # Handle both string and date object types
+        if created is None:
+            errors.append("'Created' field must be in YYYY-MM-DD format")
+        else:
+            # Convert to string (handles date objects from PyYAML)
+            created_str = str(created)
+            if not re.match(r'^\d{4}-\d{2}-\d{2}$', created_str):
+                errors.append(f"'Created' field must be in YYYY-MM-DD format, got: {created_str}")
     
     if doc_type == 'CIP' and 'Implementors' in frontmatter:
         # Implementors can be a list or "N/A"
@@ -209,9 +214,14 @@ def validate_sections(content: str, doc_type: str) -> List[str]:
     # For CIP, check Path to Active subsections
     if doc_type == 'CIP' and 'Path to Active' in found_sections:
         h3_headers = extract_h3_headers_under_section(content, 'Path to Active')
-        found_subsections = set(h3_headers)
-        missing_subsections = PATH_TO_ACTIVE_SUBSECTIONS - found_subsections
-        if missing_subsections:
+        # Normalize headers to lowercase for case-insensitive comparison
+        found_subsections_lower = {h.lower() for h in h3_headers}
+        required_subsections_lower = {h.lower() for h in PATH_TO_ACTIVE_SUBSECTIONS}
+        missing_subsections_lower = required_subsections_lower - found_subsections_lower
+        if missing_subsections_lower:
+            # Map back to original case for error message
+            missing_subsections = {orig for orig in PATH_TO_ACTIVE_SUBSECTIONS 
+                                 if orig.lower() in missing_subsections_lower}
             errors.append(
                 f"'Path to Active' section missing required subsections: "
                 f"{', '.join(sorted(missing_subsections))}"
@@ -223,9 +233,16 @@ def validate_sections(content: str, doc_type: str) -> List[str]:
 def determine_doc_type(file_path: Path) -> Optional[str]:
     """Determine document type (CIP or CPS) from file path."""
     path_str = str(file_path)
-    if '/CIP-' in path_str:
+    # Normalize path separators and check for CIP- or CPS- patterns
+    # Handles both absolute (/CIP-123/) and relative (CIP-123/) paths
+    # Also handles Windows paths (CIP-123\README.md)
+    normalized_path = path_str.replace('\\', '/')
+    
+    # Check for CIP- pattern (with or without leading slash)
+    if re.search(r'(^|/)CIP-', normalized_path, re.IGNORECASE):
         return 'CIP'
-    elif '/CPS-' in path_str:
+    # Check for CPS- pattern (with or without leading slash)
+    elif re.search(r'(^|/)CPS-', normalized_path, re.IGNORECASE):
         return 'CPS'
     return None
 

@@ -304,18 +304,18 @@ def main():
         
         if not is_valid:
             all_valid = False
-            print(f"\n❌ Validation failed for {file_path}:", file=sys.stderr)
+            print(f"\nValidation failed for {file_path}:", file=sys.stderr)
             for error in errors:
                 print(f"  - {error}", file=sys.stderr)
             all_errors.append((file_path, errors))
         else:
-            print(f"✅ {file_path} is valid", file=sys.stderr)
+            print(f"{file_path} is valid", file=sys.stderr)
     
     if not all_valid:
-        print(f"\n❌ Validation failed for {len(all_errors)} file(s)", file=sys.stderr)
+        print(f"\nValidation failed for {len(all_errors)} file(s)", file=sys.stderr)
         sys.exit(1)
     
-    print(f"\n✅ All {len(files_to_validate)} file(s) passed validation", file=sys.stderr)
+    print(f"\nAll {len(files_to_validate)} file(s) passed validation", file=sys.stderr)
     sys.exit(0)
 
 

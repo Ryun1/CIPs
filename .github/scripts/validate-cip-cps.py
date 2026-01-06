@@ -47,6 +47,11 @@ PATH_TO_ACTIVE_SUBSECTIONS = {
     'Implementation Plan'
 }
 
+# Optional fields (allowed but not required)
+CIP_OPTIONAL_FIELDS = {
+    'Solution-To'
+}
+
 
 def parse_frontmatter(content: str) -> Tuple[Optional[Dict], Optional[str]]:
     """Parse YAML frontmatter from markdown content.
@@ -148,8 +153,12 @@ def validate_header(frontmatter: Dict, doc_type: str) -> List[str]:
     if missing_fields:
         errors.append(f"Missing required header fields: {', '.join(sorted(missing_fields))}")
     
-    # Check for extra fields (strict validation)
-    extra_fields = set(frontmatter.keys()) - required_fields
+    # Check for extra fields (strict validation, but allow optional fields)
+    allowed_fields = required_fields.copy()
+    if doc_type == 'CIP':
+        allowed_fields.update(CIP_OPTIONAL_FIELDS)
+    
+    extra_fields = set(frontmatter.keys()) - allowed_fields
     if extra_fields:
         errors.append(f"Unexpected header fields: {', '.join(sorted(extra_fields))}")
     
@@ -185,6 +194,11 @@ def validate_header(frontmatter: Dict, doc_type: str) -> List[str]:
         if not isinstance(frontmatter['Proposed Solutions'], list):
             errors.append("'Proposed Solutions' field must be a list")
     
+    if doc_type == 'CIP' and 'Solution-To' in frontmatter:
+        # Solution-To should be a list of CPS references
+        if not isinstance(frontmatter['Solution-To'], list):
+            errors.append("'Solution-To' field must be a list")
+    
     return errors
 
 
@@ -206,13 +220,21 @@ def validate_sections(content: str, doc_type: str) -> List[str]:
     h2_headers = extract_h2_headers(content)
     found_sections = set(h2_headers)
     
-    # Check for missing sections
-    missing_sections = required_sections - found_sections
-    if missing_sections:
+    # Normalize headers to lowercase for case-insensitive comparison
+    found_sections_lower = {h.lower() for h in found_sections}
+    required_sections_lower = {h.lower() for h in required_sections}
+    
+    # Check for missing sections (case-insensitive)
+    missing_sections_lower = required_sections_lower - found_sections_lower
+    if missing_sections_lower:
+        # Map back to original case from required_sections for error message
+        missing_sections = {orig for orig in required_sections 
+                          if orig.lower() in missing_sections_lower}
         errors.append(f"Missing required sections: {', '.join(sorted(missing_sections))}")
     
-    # For CIP, check Path to Active subsections
-    if doc_type == 'CIP' and 'Path to Active' in found_sections:
+    # For CIP, check Path to Active subsections (case-insensitive check)
+    path_to_active_found = any(h.lower() == 'path to active' for h in found_sections)
+    if doc_type == 'CIP' and path_to_active_found:
         h3_headers = extract_h3_headers_under_section(content, 'Path to Active')
         # Normalize headers to lowercase for case-insensitive comparison
         found_subsections_lower = {h.lower() for h in h3_headers}
@@ -308,8 +330,6 @@ def main():
             for error in errors:
                 print(f"  - {error}", file=sys.stderr)
             all_errors.append((file_path, errors))
-        else:
-            print(f"{file_path} is valid", file=sys.stderr)
     
     if not all_valid:
         print(f"\nValidation failed for {len(all_errors)} file(s)", file=sys.stderr)

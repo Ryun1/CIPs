@@ -45,6 +45,16 @@ CIP_OPTIONAL_FIELDS = {
     'Solution-To'
 }
 
+# Optional H2 sections (allowed but not required)
+CIP_OPTIONAL_SECTIONS = {
+    'Versioning',
+    'References',
+    'Appendix',
+    'Appendices',
+    'Acknowledgments',
+    'Acknowledgements'
+}
+
 # Load CIP header schema
 SCHEMA_PATH = Path(__file__).parent.parent / 'schemas' / 'cip-header.schema.json'
 try:
@@ -136,6 +146,60 @@ def extract_h3_headers_under_section(content: str, section_name: str) -> List[st
                 break
     
     return h3_headers
+
+
+def extract_h1_headers(content: str) -> List[str]:
+    """Extract all H1 headers (#) from markdown content."""
+    h1_pattern = r'^#\s+(.+)$'
+    headers = []
+    for line in content.split('\n'):
+        match = re.match(h1_pattern, line)
+        if match:
+            headers.append(match.group(1).strip())
+    return headers
+
+
+def validate_line_endings(file_path: Path) -> List[str]:
+    """Validate that file uses UNIX line endings (LF, not CRLF).
+    
+    Returns:
+        List of error messages (empty if valid)
+    """
+    errors = []
+    
+    try:
+        # Read file in binary mode to check line endings
+        with open(file_path, 'rb') as f:
+            content_bytes = f.read()
+        
+        # Check for CRLF (\r\n) - Windows line endings
+        if b'\r\n' in content_bytes:
+            errors.append("File uses Windows line endings (CRLF). Use UNIX line endings (LF) instead.")
+        
+        # Check for standalone \r without \n (old Mac line endings)
+        # Replace CRLF first, then check for remaining CR
+        content_without_crlf = content_bytes.replace(b'\r\n', b'')
+        if b'\r' in content_without_crlf:
+            errors.append("File uses old Mac line endings (CR). Use UNIX line endings (LF) instead.")
+    except Exception as e:
+        errors.append(f"Error checking line endings: {e}")
+    
+    return errors
+
+
+def validate_no_h1_headings(content: str) -> List[str]:
+    """Validate that no H1 headings are present in the document.
+    
+    Returns:
+        List of error messages (empty if valid)
+    """
+    errors = []
+    
+    h1_headers = extract_h1_headers(content)
+    if h1_headers:
+        errors.append(f"H1 headings are not allowed. Found: {', '.join(h1_headers)}")
+    
+    return errors
 
 
 def validate_header(frontmatter: Dict) -> List[str]:
@@ -244,8 +308,9 @@ def validate_sections(content: str) -> List[str]:
     # Normalize headers to lowercase for case-insensitive comparison
     found_sections_lower = {h.lower() for h in found_sections}
     required_sections_lower = {h.lower() for h in CIP_REQUIRED_SECTIONS}
+    optional_sections_lower = {h.lower() for h in CIP_OPTIONAL_SECTIONS}
     
-    # Check for missing sections (case-insensitive)
+    # Check for missing required sections (case-insensitive)
     missing_sections_lower = required_sections_lower - found_sections_lower
     if missing_sections_lower:
         # Map back to original case from required_sections for error message
@@ -297,6 +362,10 @@ def validate_file(file_path: Path) -> Tuple[bool, List[str]]:
     if not is_cip_file(file_path):
         return False, [f"File path does not indicate a CIP document: {file_path}"]
     
+    # Validate line endings (must check raw file bytes)
+    line_ending_errors = validate_line_endings(file_path)
+    errors.extend(line_ending_errors)
+    
     # Read file content
     try:
         content = file_path.read_text(encoding='utf-8')
@@ -312,6 +381,10 @@ def validate_file(file_path: Path) -> Tuple[bool, List[str]]:
     # Validate header
     header_errors = validate_header(frontmatter)
     errors.extend(header_errors)
+    
+    # Validate no H1 headings
+    h1_errors = validate_no_h1_headings(remaining_content)
+    errors.extend(h1_errors)
     
     # Validate sections
     section_errors = validate_sections(remaining_content)

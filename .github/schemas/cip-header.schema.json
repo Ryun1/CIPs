@@ -17,11 +17,11 @@
   ],
   "properties": {
     "CIP": {
-      "description": "The CIP number (without leading 0), or '?' before being assigned. If a string (not '?'), it must start with 'CIP-'",
+      "description": "The CIP number (without leading 0), or one or more '?' before being assigned",
       "oneOf": [
         {
           "type": "string",
-          "pattern": "^\\?$"
+          "pattern": "^\\?+$"
         },
         {
           "type": "integer",
@@ -29,7 +29,7 @@
         },
         {
           "type": "string",
-          "pattern": "^CIP-.+$"
+          "pattern": "^[1-9]\\d*$"
         }
       ]
     },

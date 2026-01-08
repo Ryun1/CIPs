@@ -1,25 +1,27 @@
 #!/usr/bin/env python3
 """
-Validation script for CIP and CPS README.md files.
-Validates YAML frontmatter headers and required sections.
+Validation script for CIP README.md files.
+Validates YAML headers and required sections.
 """
 
 import sys
 import re
+import json
 import yaml
 from pathlib import Path
 from typing import Dict, List, Set, Tuple, Optional
 
+try:
+    import jsonschema
+except ImportError:
+    print("Error: jsonschema library is required. Install it with: pip install jsonschema", file=sys.stderr)
+    sys.exit(1)
 
-# Required fields for CIP and CPS headers
+
+# Required fields for CIP headers
 CIP_REQUIRED_FIELDS = {
     'CIP', 'Title', 'Category', 'Status', 'Authors', 
     'Implementors', 'Discussions', 'Created', 'License'
-}
-
-CPS_REQUIRED_FIELDS = {
-    'CPS', 'Title', 'Category', 'Status', 'Authors', 
-    'Proposed Solutions', 'Discussions', 'Created', 'License'
 }
 
 # Required sections (H2 headers)
@@ -29,15 +31,6 @@ CIP_REQUIRED_SECTIONS = {
     'Specification',
     'Rationale: how does this CIP achieve its goals?',
     'Path to Active',
-    'Copyright'
-}
-
-CPS_REQUIRED_SECTIONS = {
-    'Abstract',
-    'Problem',
-    'Use cases',
-    'Goals',
-    'Open Questions',
     'Copyright'
 }
 
@@ -51,6 +44,18 @@ PATH_TO_ACTIVE_SUBSECTIONS = {
 CIP_OPTIONAL_FIELDS = {
     'Solution-To'
 }
+
+# Load CIP header schema
+SCHEMA_PATH = Path(__file__).parent.parent / 'schemas' / 'cip-header.schema.json'
+try:
+    with open(SCHEMA_PATH, 'r', encoding='utf-8') as f:
+        CIP_HEADER_SCHEMA = json.load(f)
+except FileNotFoundError:
+    CIP_HEADER_SCHEMA = None
+    print(f"Warning: Schema file not found at {SCHEMA_PATH}. Schema validation will be skipped.", file=sys.stderr)
+except json.JSONDecodeError as e:
+    CIP_HEADER_SCHEMA = None
+    print(f"Warning: Invalid JSON schema file: {e}. Schema validation will be skipped.", file=sys.stderr)
 
 
 def parse_frontmatter(content: str) -> Tuple[Optional[Dict], Optional[str]]:
@@ -133,30 +138,57 @@ def extract_h3_headers_under_section(content: str, section_name: str) -> List[st
     return h3_headers
 
 
-def validate_header(frontmatter: Dict, doc_type: str) -> List[str]:
-    """Validate the YAML frontmatter header.
+def validate_header(frontmatter: Dict) -> List[str]:
+    """Validate the YAML frontmatter header for CIPs.
     
     Returns:
         List of error messages (empty if valid)
     """
     errors = []
     
-    if doc_type == 'CIP':
-        required_fields = CIP_REQUIRED_FIELDS
-    elif doc_type == 'CPS':
-        required_fields = CPS_REQUIRED_FIELDS
+    # Use JSON Schema validation for CIP headers if schema is available
+    if CIP_HEADER_SCHEMA is not None:
+        try:
+            # Convert date objects to strings for schema validation
+            # JSON Schema expects dates as strings, but PyYAML may parse them as date objects
+            frontmatter_for_schema = {}
+            for key, value in frontmatter.items():
+                if key == 'Created' and hasattr(value, 'isoformat'):
+                    # Handle date objects from PyYAML (datetime.date or datetime.datetime)
+                    frontmatter_for_schema[key] = value.isoformat()
+                else:
+                    frontmatter_for_schema[key] = value
+            
+            jsonschema.validate(instance=frontmatter_for_schema, schema=CIP_HEADER_SCHEMA)
+        except jsonschema.ValidationError as e:
+            # Format JSON Schema validation errors in a user-friendly way
+            error_path = '.'.join(str(p) for p in e.path) if e.path else 'root'
+            errors.append(f"Header validation error at '{error_path}': {e.message}")
+        except jsonschema.SchemaError as e:
+            errors.append(f"Schema error: {e.message}")
     else:
-        return [f"Unknown document type: {doc_type}"]
+        # Fallback to manual validation if schema is not available
+        errors.extend(_validate_header_manual(frontmatter))
+    
+    return errors
+
+
+def _validate_header_manual(frontmatter: Dict) -> List[str]:
+    """Manual validation fallback (used when schema is unavailable).
+    
+    Returns:
+        List of error messages (empty if valid)
+    """
+    errors = []
     
     # Check for required fields
-    missing_fields = required_fields - set(frontmatter.keys())
+    missing_fields = CIP_REQUIRED_FIELDS - set(frontmatter.keys())
     if missing_fields:
         errors.append(f"Missing required header fields: {', '.join(sorted(missing_fields))}")
     
     # Check for extra fields (strict validation, but allow optional fields)
-    allowed_fields = required_fields.copy()
-    if doc_type == 'CIP':
-        allowed_fields.update(CIP_OPTIONAL_FIELDS)
+    allowed_fields = CIP_REQUIRED_FIELDS.copy()
+    allowed_fields.update(CIP_OPTIONAL_FIELDS)
     
     extra_fields = set(frontmatter.keys()) - allowed_fields
     if extra_fields:
@@ -185,16 +217,12 @@ def validate_header(frontmatter: Dict, doc_type: str) -> List[str]:
             if not re.match(r'^\d{4}-\d{2}-\d{2}$', created_str):
                 errors.append(f"'Created' field must be in YYYY-MM-DD format, got: {created_str}")
     
-    if doc_type == 'CIP' and 'Implementors' in frontmatter:
+    if 'Implementors' in frontmatter:
         # Implementors can be a list or "N/A"
         if not isinstance(frontmatter['Implementors'], (list, str)):
             errors.append("'Implementors' field must be a list or 'N/A'")
     
-    if doc_type == 'CPS' and 'Proposed Solutions' in frontmatter:
-        if not isinstance(frontmatter['Proposed Solutions'], list):
-            errors.append("'Proposed Solutions' field must be a list")
-    
-    if doc_type == 'CIP' and 'Solution-To' in frontmatter:
+    if 'Solution-To' in frontmatter:
         # Solution-To should be a list of CPS references
         if not isinstance(frontmatter['Solution-To'], list):
             errors.append("'Solution-To' field must be a list")
@@ -202,39 +230,32 @@ def validate_header(frontmatter: Dict, doc_type: str) -> List[str]:
     return errors
 
 
-def validate_sections(content: str, doc_type: str) -> List[str]:
-    """Validate required sections exist at H2 level.
+def validate_sections(content: str) -> List[str]:
+    """Validate required sections exist at H2 level for CIPs.
     
     Returns:
         List of error messages (empty if valid)
     """
     errors = []
     
-    if doc_type == 'CIP':
-        required_sections = CIP_REQUIRED_SECTIONS
-    elif doc_type == 'CPS':
-        required_sections = CPS_REQUIRED_SECTIONS
-    else:
-        return [f"Unknown document type: {doc_type}"]
-    
     h2_headers = extract_h2_headers(content)
     found_sections = set(h2_headers)
     
     # Normalize headers to lowercase for case-insensitive comparison
     found_sections_lower = {h.lower() for h in found_sections}
-    required_sections_lower = {h.lower() for h in required_sections}
+    required_sections_lower = {h.lower() for h in CIP_REQUIRED_SECTIONS}
     
     # Check for missing sections (case-insensitive)
     missing_sections_lower = required_sections_lower - found_sections_lower
     if missing_sections_lower:
         # Map back to original case from required_sections for error message
-        missing_sections = {orig for orig in required_sections 
+        missing_sections = {orig for orig in CIP_REQUIRED_SECTIONS 
                           if orig.lower() in missing_sections_lower}
         errors.append(f"Missing required sections: {', '.join(sorted(missing_sections))}")
     
-    # For CIP, check Path to Active subsections (case-insensitive check)
+    # Check Path to Active subsections (case-insensitive check)
     path_to_active_found = any(h.lower() == 'path to active' for h in found_sections)
-    if doc_type == 'CIP' and path_to_active_found:
+    if path_to_active_found:
         h3_headers = extract_h3_headers_under_section(content, 'Path to Active')
         # Normalize headers to lowercase for case-insensitive comparison
         found_subsections_lower = {h.lower() for h in h3_headers}
@@ -252,35 +273,29 @@ def validate_sections(content: str, doc_type: str) -> List[str]:
     return errors
 
 
-def determine_doc_type(file_path: Path) -> Optional[str]:
-    """Determine document type (CIP or CPS) from file path."""
+def is_cip_file(file_path: Path) -> bool:
+    """Check if file path indicates a CIP document."""
     path_str = str(file_path)
-    # Normalize path separators and check for CIP- or CPS- patterns
+    # Normalize path separators and check for CIP- pattern
     # Handles both absolute (/CIP-123/) and relative (CIP-123/) paths
     # Also handles Windows paths (CIP-123\README.md)
     normalized_path = path_str.replace('\\', '/')
     
     # Check for CIP- pattern (with or without leading slash)
-    if re.search(r'(^|/)CIP-', normalized_path, re.IGNORECASE):
-        return 'CIP'
-    # Check for CPS- pattern (with or without leading slash)
-    elif re.search(r'(^|/)CPS-', normalized_path, re.IGNORECASE):
-        return 'CPS'
-    return None
+    return bool(re.search(r'(^|/)CIP-', normalized_path, re.IGNORECASE))
 
 
 def validate_file(file_path: Path) -> Tuple[bool, List[str]]:
-    """Validate a single README.md file.
+    """Validate a single CIP README.md file.
     
     Returns:
         Tuple of (is_valid, list_of_errors)
     """
     errors = []
     
-    # Determine document type
-    doc_type = determine_doc_type(file_path)
-    if not doc_type:
-        return False, [f"Could not determine document type from path: {file_path}"]
+    # Check if this is a CIP file
+    if not is_cip_file(file_path):
+        return False, [f"File path does not indicate a CIP document: {file_path}"]
     
     # Read file content
     try:
@@ -295,11 +310,11 @@ def validate_file(file_path: Path) -> Tuple[bool, List[str]]:
         return False, errors
     
     # Validate header
-    header_errors = validate_header(frontmatter, doc_type)
+    header_errors = validate_header(frontmatter)
     errors.extend(header_errors)
     
     # Validate sections
-    section_errors = validate_sections(remaining_content, doc_type)
+    section_errors = validate_sections(remaining_content)
     errors.extend(section_errors)
     
     is_valid = len(errors) == 0
@@ -309,7 +324,7 @@ def validate_file(file_path: Path) -> Tuple[bool, List[str]]:
 def main():
     """Main entry point for the validation script."""
     if len(sys.argv) < 2:
-        print("Usage: validate-cip-cps.py <file1> [file2] ...", file=sys.stderr)
+        print("Usage: validate-cip.py <file1> [file2] ...", file=sys.stderr)
         sys.exit(1)
     
     files_to_validate = [Path(f) for f in sys.argv[1:]]

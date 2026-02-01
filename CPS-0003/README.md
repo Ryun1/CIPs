@@ -8,6 +8,9 @@ Authors:
     - Robert Phair <rphair@cosd.com>
 Proposed Solutions:
     - CIP-0113: https://github.com/cardano-foundation/CIPs/pull/444
+Discussions:
+    - https://github.com/cardano-foundation/CIPs/pull/382
+    - https://github.com/cardano-foundation/CIPs/pull/947
 Created: 2022-11-20
 ---
 

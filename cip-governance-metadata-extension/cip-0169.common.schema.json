@@ -104,6 +104,55 @@
         }
       }
     },
+    "reference": {
+      "title": "Reference",
+      "description": "A reference to a document",
+      "type": "object",
+      "required": [
+        "@type",
+        "label",
+        "uri"
+      ],
+      "properties": {
+        "@type": {
+          "type": "string",
+          "enum": [
+            "GovernanceMetadata",
+            "Other"
+          ],
+          "title": "Type"
+        },
+        "label": {
+          "type": "string",
+          "title": "Label"
+        },
+        "uri": {
+          "type": "string",
+          "title": "URI"
+        },
+        "referenceHash": {
+          "$ref": "#/definitions/referenceHash"
+        }
+      }
+    },
+    "referenceHash": {
+      "title": "Reference Hash",
+      "description": "A hash of a reference document",
+      "type": "object",
+      "required": [
+        "hashDigest",
+        "hashAlgorithm"
+      ],
+      "properties": {
+        "hashDigest": {
+          "type": "string",
+          "title": "Hash"
+        },
+        "hashAlgorithm": {
+          "$ref": "#/definitions/hashAlgorithm"
+        }
+      }
+    },
     "onChain": {
       "title": "OnChain Effects",
       "description": "The on-chain effects encoded in CIP-116 standard format. This property is optional but when present binds metadata to specific on-chain effects.",

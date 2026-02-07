@@ -1,6 +1,7 @@
 ---
 CPS: ?
 Title: Test
+Status: Open
 Category: Tools
 Authors:
   - Ryan <ryan@email.com>

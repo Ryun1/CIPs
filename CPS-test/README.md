@@ -2,7 +2,6 @@
 CPS: ?
 Title: Test
 Category: Tools
-Status: Open
 Authors:
   - Ryan <ryan@email.com>
 Proposed Solutions: []

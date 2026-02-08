@@ -1,12 +1,16 @@
 name: CPS Validation
 
 on:
-  workflow_dispatch:
-    inputs:
-      files:
-        description: 'CPS files to validate (e.g., CPS-0001/README.md)'
-        required: true
-        type: string
+  # temp for testing
+  push:                                                                                                     
+    branches:                                                                                               
+      - cps-validation-test
+  # workflow_dispatch:
+  #   inputs:
+  #     files:
+  #       description: 'CPS files to validate (e.g., CPS-0001/README.md)'
+  #       required: true
+  #       type: string
 
   # pull_request:
   #   paths:

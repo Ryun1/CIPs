@@ -1,6 +1,4 @@
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "cip-169.common.schema.json",
   "title": "CIP-169 Common",
   "description": "Metadata document for Cardano governance with on-chain effects verification, extending CIP-100",
   "type": "object",
@@ -106,24 +104,61 @@
         }
       }
     },
+    "reference": {
+      "title": "Reference",
+      "description": "A reference to a document",
+      "type": "object",
+      "required": [
+        "@type",
+        "label",
+        "uri"
+      ],
+      "properties": {
+        "@type": {
+          "type": "string",
+          "enum": [
+            "GovernanceMetadata",
+            "Other"
+          ],
+          "title": "Type"
+        },
+        "label": {
+          "type": "string",
+          "title": "Label"
+        },
+        "uri": {
+          "type": "string",
+          "title": "URI"
+        },
+        "referenceHash": {
+          "$ref": "#/definitions/referenceHash"
+        }
+      }
+    },
+    "referenceHash": {
+      "title": "Reference Hash",
+      "description": "A hash of a reference document",
+      "type": "object",
+      "required": [
+        "hashDigest",
+        "hashAlgorithm"
+      ],
+      "properties": {
+        "hashDigest": {
+          "type": "string",
+          "title": "Hash"
+        },
+        "hashAlgorithm": {
+          "$ref": "#/definitions/hashAlgorithm"
+        }
+      }
+    },
     "onChain": {
       "title": "OnChain Effects",
       "description": "The on-chain effects encoded in CIP-116 standard format. This property is optional but when present binds metadata to specific on-chain effects.",
       "oneOf": [
         {
           "$ref": "#/definitions/ProposalProcedure"
-        },
-        {
-          "$ref": "#/definitions/VotingProcedure"
-        },
-        {
-          "$ref": "#/definitions/DRepRegistration"
-        },
-        {
-          "$ref": "#/definitions/DRepUpdate"
-        },
-        {
-          "$ref": "#/definitions/CommitteeResignation"
         }
       ]
     },
@@ -303,37 +338,284 @@
       ]
     },
     "GovActionId": {
-      "$ref": "../CIP-0116/cardano-conway.json#/definitions/GovActionId"
-    },
-    "UInt64": {
-      "$ref": "../CIP-0116/cardano-conway.json#/definitions/UInt64"
-    },    
-    "RewardAddress": {
-      "$ref": "../CIP-0116/cardano-conway.json#/definitions/RewardAddress"
-    },
-    "UnitInterval": {
-      "$ref": "../CIP-0116/cardano-conway.json#/definitions/UnitInterval"
-    },
-    "Credential": {
-      "$ref": "../CIP-0116/cardano-conway.json#/definitions/Credential"
-    },
-    "Constitution": {
-      "$ref": "../CIP-0116/cardano-conway.json#/definitions/Constitution"
-    },
-    "ProtocolVersion": {
-      "$ref": "../CIP-0116/cardano-conway.json#/definitions/ProtocolVersion"
+      "title": "GovActionId",
+      "type": "object",
+      "properties": {
+        "transaction_id": {
+          "$ref": "#/definitions/TransactionHash"
+        },
+        "gov_action_index": {
+          "$ref": "#/definitions/UInt16"
+        }
+      },
+      "required": ["transaction_id", "gov_action_index"],
+      "unevaluatedProperties": false
     },
     "TransactionHash": {
-      "$ref": "../CIP-0116/cardano-conway.json#/definitions/TransactionHash"
+      "title": "TransactionHash",
+      "type": "string",
+      "format": "hex",
+      "pattern": "^[0-9a-f]{64}$",
+      "maxLength": 64,
+      "minLength": 64,
+      "examples": [
+        "eca40340fa6e65d964915ba4bc8bd811a0493d263ffe95875291114cbb2d0686",
+        "7420a723bf4ee4417ec1aa2262ff60921270681e7a9d537132cbcc82917e8006",
+        "fbc1da46d62a431e69855ad48a6b49b0e2aaafc6fd3dc4a066c6851b7bd31a91",
+        "c6726192662abeab149098095eabe004ecbec47f5e564748ab0d394affca47d9"
+      ]
+    },
+    "UInt32": {
+      "title": "UInt32",
+      "type": "integer",
+      "description": "32-bit unsigned integer (0 to 4294967295) (CIP-116)",
+      "minimum": 0,
+      "maximum": 4294967295
+    },
+    "UInt16": {
+      "title": "UInt16",
+      "description": "16-bit unsigned integer (CIP-116)",
+      "type": "string",
+      "pattern": "^(0|[1-9][0-9]*)$",
+      "format": "uint16"
+    },
+    "UInt64": {
+      "title": "UInt64",
+      "description": "64-bit unsigned integer (CIP-116)",
+      "type": "string",
+      "pattern": "^(0|[1-9][0-9]*)$",
+      "format": "uint64"
+    },
+    "UnitInterval": {
+      "title": "UnitInterval",
+      "type": "object",
+      "properties": {
+        "numerator": {
+          "$ref": "#/definitions/UInt64"
+        },
+        "denominator": {
+          "$ref": "#/definitions/UInt64"
+        }
+      },
+      "required": ["numerator", "denominator"],
+      "unevaluatedProperties": false
+    },   
+    "RewardAddress": {
+      "title": "RewardAddress",
+      "type": "string",
+      "format": "bech32",
+      "pattern": "^(stake1[02-9ac-hj-np-z]{53}|stake_test1[02-9ac-hj-np-z]{53})$",
+      "examples": [
+        "stake1u9u5vlrf4xkxv2qpwngf6cjhtw542ayty80v8dyr49rf5egnuvsnm"
+      ]
     },
     "Ed25519KeyHash": {
-      "$ref": "../CIP-0116/cardano-conway.json#/definitions/Ed25519KeyHash"
+      "title": "Ed25519KeyHash",
+      "type": "string",
+      "format": "hex",
+      "pattern": "^[0-9a-f]{56}$"
     },
     "ScriptHash": {
-      "$ref": "../CIP-0116/cardano-conway.json#/definitions/ScriptHash"
+      "title": "ScriptHash",
+      "type": "string",
+      "format": "hex",
+      "pattern": "^[0-9a-f]{56}$"
+    },
+    "Credential": {
+      "title": "Credential",
+      "type": "object",
+      "discriminator": {
+        "propertyName": "tag"
+      },
+      "oneOf": [
+        {
+          "type": "object",
+          "title": "PubKey Credential",
+          "properties": {
+            "tag": {
+              "enum": ["pubkey_hash"]
+            },
+            "value": {
+              "$ref": "#/definitions/Ed25519KeyHash"
+            }
+          },
+          "required": ["tag", "value"],
+          "unevaluatedProperties": false
+        },
+        {
+          "type": "object",
+          "title": "Script Credential",
+          "properties": {
+            "tag": {
+              "enum": ["script_hash"]
+            },
+            "value": {
+              "$ref": "#/definitions/ScriptHash"
+            }
+          },
+          "required": ["tag", "value"],
+          "unevaluatedProperties": false
+        }
+      ]
+    },
+    "URL": {
+      "title": "URL",
+      "description": "UTF-8 URL string. Maximum size is 128 bytes, but there is no way to express byte length limit in a json-schema (maxLength limits the number of characters)",
+      "type": "string",
+      "maxLength": 128,
+      "format": "string128"
+    },
+    "DataHash": {
+      "title": "DataHash",
+      "type": "string",
+      "format": "hex",
+      "pattern": "^([0-9a-f][0-9a-f]){32}$"
     },
     "Anchor": {
-      "$ref": "../CIP-0116/cardano-conway.json#/definitions/Anchor"
+      "title": "Anchor",
+      "type": "object",
+      "properties": {
+        "url": {
+          "$ref": "#/definitions/URL"
+        },
+        "data_hash": {
+          "$ref": "#/definitions/DataHash"
+        }
+      },
+      "required": ["url", "data_hash"],
+      "unevaluatedProperties": false
+    },
+    "Constitution": {
+      "title": "Constitution",
+      "type": "object",
+      "properties": {
+        "anchor": {
+          "$ref": "#/definitions/Anchor"
+        },
+        "script_hash": {
+          "$ref": "#/definitions/ScriptHash"
+        }
+      },
+      "required": ["anchor"],
+      "unevaluatedProperties": false
+    },
+    "ProtocolVersion": {
+      "title": "ProtocolVersion",
+      "type": "object",
+      "properties": {
+        "major": {
+          "$ref": "#/definitions/UInt32"
+        },
+        "minor": {
+          "$ref": "#/definitions/UInt32"
+        }
+      },
+      "required": ["major", "minor"],
+      "unevaluatedProperties": false
+    },
+    "ProtocolParamUpdate": {
+      "title": "ProtocolParamUpdate",
+      "type": "object",
+      "properties": {
+        "ada_per_utxo_byte": {
+          "$ref": "#/definitions/UInt64"
+        },
+        "collateral_percentage": {
+          "$ref": "#/definitions/UInt32"
+        },
+        "cost_models": {
+          "$ref": "#/definitions/CostModels"
+        },
+        "d": {
+          "$ref": "#/definitions/UnitInterval"
+        },
+        "execution_costs": {
+          "$ref": "#/definitions/ExUnitPrices"
+        },
+        "expansion_rate": {
+          "$ref": "#/definitions/UnitInterval"
+        },
+        "key_deposit": {
+          "$ref": "#/definitions/UInt64"
+        },
+        "max_block_body_size": {
+          "$ref": "#/definitions/UInt32"
+        },
+        "max_block_ex_units": {
+          "$ref": "#/definitions/ExUnits"
+        },
+        "max_block_header_size": {
+          "$ref": "#/definitions/UInt32"
+        },
+        "max_collateral_inputs": {
+          "$ref": "#/definitions/UInt32"
+        },
+        "max_epoch": {
+          "$ref": "#/definitions/UInt32"
+        },
+        "max_tx_ex_units": {
+          "$ref": "#/definitions/ExUnits"
+        },
+        "max_tx_size": {
+          "$ref": "#/definitions/UInt32"
+        },
+        "max_value_size": {
+          "$ref": "#/definitions/UInt32"
+        },
+        "min_pool_cost": {
+          "$ref": "#/definitions/UInt64"
+        },
+        "minfee_a": {
+          "$ref": "#/definitions/UInt64"
+        },
+        "minfee_b": {
+          "$ref": "#/definitions/UInt64"
+        },
+        "n_opt": {
+          "$ref": "#/definitions/UInt64"
+        },
+        "pool_deposit": {
+          "$ref": "#/definitions/UInt64"
+        },
+        "pool_pledge_influence": {
+          "$ref": "#/definitions/UnitInterval"
+        },
+        "protocol_version": {
+          "$ref": "#/definitions/ProtocolVersion"
+        },
+        "treasury_growth_rate": {
+          "$ref": "#/definitions/UnitInterval"
+        },
+        "pool_voting_thresholds": {
+          "$ref": "#/definitions/PoolVotingThresholds"
+        },
+        "drep_voting_thresholds": {
+          "$ref": "#/definitions/DRepVotingThresholds"
+        },
+        "committee_min_size": {
+          "$ref": "#/definitions/UInt16"
+        },
+        "committee_max_term_length": {
+          "$ref": "#/definitions/UInt32"
+        },
+        "gov_action_lifetime": {
+          "$ref": "#/definitions/UInt32"
+        },
+        "gov_action_deposit": {
+          "$ref": "#/definitions/UInt64"
+        },
+        "drep_deposit": {
+          "$ref": "#/definitions/UInt64"
+        },
+        "drep_activity": {
+          "$ref": "#/definitions/UInt32"
+        },
+        "min_fee_ref_script_cost_per_byte": {
+          "$ref": "#/definitions/NonnegativeInterval"
+        }
+      },
+      "unevaluatedProperties": false,
+      "required": []
     }
   }
 }

@@ -16,7 +16,7 @@ License: CC-BY-4.0
 ---
 
 ## Abstract
-<!-- A short (\~200 word) description of the proposed solution and the technical issue being addressed. -->
+This CIP is intended to create a registry of types of info actions such as Net Change Limit, Hard Fork Naming to allow tools to represent data better, but as well allow community to create extra specifications for a specific info action.
 
 ## Motivation: why is this CIP necessary?
 <!-- A clear explanation that introduces the reason for a proposal, its use cases and stakeholders. If the CIP changes an established design then it must outline design issues that motivate a rework. For complex proposals, authors must write a Cardano Problem Statement (CPS) as defined in CIP-9999 and link to it as the `Motivation`. -->
@@ -30,12 +30,22 @@ By defining a machine readable structure to be included within the Info action g
 
 ## Specification
 <!-- The technical specification should describe the proposed improvement in sufficient technical detail. In particular, it should provide enough information that an implementation can be performed solely on the basis of the design in the CIP. This is necessary to facilitate multiple, interoperable implementations. This must include how the CIP should be versioned, if not covered under an optional Versioning main heading. If a proposal defines structure of on-chain data it must include a CDDL schema in its specification.-->
+We extend CIP-100 body to add XXX property.
+
+### Registery
+
+| Type | Description |
+| --- | --- |
+| NCL | net change limit |
+| Hard Fork Naming | voting for the name of the next hard fork |
 
 ## Rationale: how does this CIP achieve its goals?
 <!-- The rationale fleshes out the specification by describing what motivated the design and what led to particular design decisions. It should describe alternate designs considered and related work. The rationale should provide evidence of consensus within the community and discuss significant objections or concerns raised during the discussion.
 
 It must also explain how the proposal affects the backward compatibility of existing solutions when applicable. If the proposal responds to a CPS, the 'Rationale' section should explain how it addresses the CPS, and answer any questions that the CPS poses for potential solutions.
 -->
+
+Specific info actions (ex. NCL) have a defined ratification criteria in the constitution. The reason this CIP is not hardcoding those values is due to the possibility of a consitution change in the future. This CIP's aim is not to define any specific type of info action rather then let the user decide the cirteria.
 
 ### Ledger Implementation
 

@@ -460,6 +460,40 @@ def validate_sections(content: str) -> List[str]:
     return errors
 
 
+def validate_directory_name(frontmatter: Dict, file_path: Path) -> List[str]:
+    """Validate that a CIP with an assigned number lives in a correctly-named directory.
+
+    For CIP number N, the parent directory must be 'CIP-NNNN' (zero-padded to 4 digits;
+    no truncation for numbers >= 10000). Unassigned CIPs ('?', '??', etc.) skip this check.
+    """
+    errors = []
+
+    cip_value = frontmatter.get('CIP')
+    if cip_value is None:
+        return errors  # Missing field is reported by header validation
+
+    # Skip unassigned CIPs ('?', '??', etc.)
+    if isinstance(cip_value, str) and cip_value.startswith('?'):
+        return errors
+
+    # Parse to integer; non-numeric strings are caught by header validation
+    try:
+        cip_num = int(cip_value)
+    except (ValueError, TypeError):
+        return errors
+
+    expected_dir = f"CIP-{cip_num:04d}"
+    actual_dir = file_path.parent.name
+
+    if actual_dir != expected_dir:
+        errors.append(
+            f"Directory name '{actual_dir}' does not match the CIP number {cip_num}. "
+            f"Expected: '{expected_dir}'"
+        )
+
+    return errors
+
+
 def is_cip_file(file_path: Path) -> bool:
     """Check if file path indicates a CIP document."""
     path_str = str(file_path)
@@ -498,6 +532,10 @@ def validate_file(file_path: Path) -> Tuple[bool, List[str]]:
             if re.match(r'^CIP:\s+0\d+', line):
                 errors.append("CIP number must not have leading zeros")
                 break
+
+    # Validate the directory name matches the assigned CIP number
+    dir_errors = validate_directory_name(frontmatter, file_path)
+    errors.extend(dir_errors)
 
     header_errors = validate_header(frontmatter)
     errors.extend(header_errors)

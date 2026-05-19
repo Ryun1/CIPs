@@ -11,6 +11,7 @@ These attempt to codify the guidance described within [CIP-9999 | Cardano Proble
 | Validation | Description |
 | ---------- | ----------- |
 | File path | Must be in a `CPS-*` directory |
+| Directory name | If the `CPS` field has an assigned number (not `?`), the directory must be named `CPS-NNNN` where `NNNN` is the CPS number zero-padded to 4 digits (e.g., `CPS: 12` → `CPS-0012/`) |
 | Line endings | Must use UNIX line endings (LF), not Windows (CRLF) or old Mac (CR) |
 | Frontmatter | Must have valid YAML frontmatter between `---` delimiters |
 | No H1 headings | H1 (`#`) headings are not allowed in the document body |
@@ -73,3 +74,21 @@ They **must** appear after `Open Questions` and before `Copyright`:
 - `Acknowledgments` / `Acknowledgements`
 
 Optional sections appearing before any required section (other than `Copyright`) will cause validation to fail.
+
+## URL Validation
+
+Every URL referenced in a CPS — both in header fields (`Discussions`, `Proposed Solutions`) and in the markdown body (`[text](url)` links, bare URLs) — is checked for liveness by [`/scripts/check-cps-urls.py`](./scripts/check-cps-urls.py).
+
+| Rule | Description |
+| ---- | ----------- |
+| Scheme | Only `http://` and `https://` URLs are checked. Other schemes (`mailto:`, `ftp:`, anchor-only `#…`) are skipped. |
+| Method | HEAD request first; falls back to GET if the server rejects HEAD with 405/501. |
+| Redirects | Followed automatically (up to the urllib default). |
+| Timeout | 10 seconds per request. |
+| Retry | One retry with a 2-second backoff on 5xx or connection errors. |
+| Auth-walled | HTTP 401 and 403 are treated as **alive** — the resource exists, just requires authentication. |
+| Dead | Any 4xx other than 401/403 (most commonly 404, 410). Fails the workflow. |
+| Transient | Persistent 5xx or connection errors after retry. Logged as warnings; does **not** fail the workflow. |
+| Skipped | URLs inside fenced code blocks (```` ``` ````), inline code spans (`` ` ``), and HTML comments (`<!-- … -->`) are not checked. |
+
+URLs are deduplicated per file before checking, so a URL that appears many times in one document only costs one request.

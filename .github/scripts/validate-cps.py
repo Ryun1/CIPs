@@ -422,6 +422,40 @@ def validate_sections(content: str) -> List[str]:
     return errors
 
 
+def validate_directory_name(frontmatter: Dict, file_path: Path) -> List[str]:
+    """Validate that a CPS with an assigned number lives in a correctly-named directory.
+
+    For CPS number N, the parent directory must be 'CPS-NNNN' (zero-padded to 4 digits;
+    no truncation for numbers >= 10000). Unassigned CPSs ('?', '??', etc.) skip this check.
+    """
+    errors = []
+
+    cps_value = frontmatter.get('CPS')
+    if cps_value is None:
+        return errors  # Missing field is reported by header validation
+
+    # Skip unassigned CPSs ('?', '??', etc.)
+    if isinstance(cps_value, str) and cps_value.startswith('?'):
+        return errors
+
+    # Parse to integer; non-numeric strings are caught by header validation
+    try:
+        cps_num = int(cps_value)
+    except (ValueError, TypeError):
+        return errors
+
+    expected_dir = f"CPS-{cps_num:04d}"
+    actual_dir = file_path.parent.name
+
+    if actual_dir != expected_dir:
+        errors.append(
+            f"Directory name '{actual_dir}' does not match the CPS number {cps_num}. "
+            f"Expected: '{expected_dir}'"
+        )
+
+    return errors
+
+
 def is_cps_file(file_path: Path) -> bool:
     """Check if file path indicates a CPS document."""
     path_str = str(file_path)
@@ -468,6 +502,10 @@ def validate_file(file_path: Path) -> Tuple[bool, List[str]]:
             if re.match(r'^CPS:\s+0\d+', line):
                 errors.append("CPS number must not have leading zeros")
                 break
+
+    # Validate the directory name matches the assigned CPS number
+    dir_errors = validate_directory_name(frontmatter, file_path)
+    errors.extend(dir_errors)
 
     # Validate header
     header_errors = validate_header(frontmatter)

@@ -64,3 +64,10 @@ jobs:
           FILES="${{ steps.get-files.outputs.files }}"
           echo "Validating CPS files: $FILES"
           python3 .github/scripts/validate-cps.py $FILES
+
+      - name: Check CPS URLs are live
+        if: steps.get-files.outputs.has_files == 'true'
+        run: |
+          FILES="${{ steps.get-files.outputs.files }}"
+          echo "Checking URLs in: $FILES"
+          python3 .github/scripts/check-cps-urls.py $FILES

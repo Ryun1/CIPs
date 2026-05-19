@@ -26,7 +26,8 @@ jobs:
         run: |
           git fetch origin pull/${{ github.event.inputs.pr_number }}/head:pr-branch
           git checkout pr-branch
-          # Overlay the script and schema from master
+          # Overlay the validator and schema from master so we always run
+          # the latest tooling, even on PRs that predate (or modify) it.
           git checkout origin/master -- .github/scripts/ .github/schemas/
 
       - name: Set up Python

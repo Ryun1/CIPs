@@ -28,6 +28,7 @@ jobs:
         run: |
           git fetch origin "pull/${PR_NUMBER}/head:pr-branch"
           git checkout pr-branch
+          git checkout origin/master -- .github/scripts/ .github/schemas/
 
       - name: Set up Python
         uses: actions/setup-python@v5

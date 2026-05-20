@@ -439,6 +439,11 @@ def validate_sections(content: str) -> List[str]:
                         f"Optional sections must appear after 'Path to Active' and before 'Copyright'."
                     )
                     break
+            if 'Copyright' in canonical_headers[:i]:
+                errors.append(
+                    f"Optional section '{header}' appears after 'Copyright'. "
+                    f"Optional sections must appear after 'Path to Active' and before 'Copyright'."
+                )
 
     # CIP-specific: validate Path to Active H3 subsections
     path_to_active_found = any(h.lower() == 'path to active' for h in found_sections)

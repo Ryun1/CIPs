@@ -28,6 +28,13 @@ CIP_REQUIRED_FIELDS = set(CIP_REQUIRED_FIELDS_ORDER)
 # Optional fields (allowed but not required)
 CIP_OPTIONAL_FIELDS = {'Solution To'}
 
+# Canonical order of all known fields; optional fields, when present,
+# must appear in their position here (Solution To goes between Discussions and Created).
+CIP_FIELDS_ORDER = [
+    'CIP', 'Title', 'Category', 'Status', 'Authors',
+    'Implementors', 'Discussions', 'Solution To', 'Created', 'License'
+]
+
 # Required sections (H2 headers) in required order
 CIP_REQUIRED_SECTIONS_ORDER = [
     'Abstract',
@@ -204,8 +211,9 @@ def validate_no_h1_headings(content: str) -> List[str]:
 def _validate_field_order(frontmatter: Dict) -> List[str]:
     """Validate that header fields appear in the correct order.
 
-    Optional fields (e.g., Solution To) may appear at any position and are
-    ignored for the order check; only the required-field order is enforced.
+    Both required and optional fields are checked against CIP_FIELDS_ORDER:
+    when an optional field (e.g., Solution To) is present, it must appear in
+    its canonical position. Unknown fields are caught by schema validation.
 
     Returns:
         List of error messages (empty if valid)
@@ -214,17 +222,16 @@ def _validate_field_order(frontmatter: Dict) -> List[str]:
 
     actual_fields = list(frontmatter.keys())
 
-    # Filter to only known required fields (ignore optional/extra fields for order check)
-    actual_required = [f for f in actual_fields if f in CIP_REQUIRED_FIELDS]
+    known_fields = CIP_REQUIRED_FIELDS | CIP_OPTIONAL_FIELDS
+    actual_known = [f for f in actual_fields if f in known_fields]
 
-    # Build expected order based on which required fields are present
-    expected_order = [f for f in CIP_REQUIRED_FIELDS_ORDER if f in actual_required]
+    expected_order = [f for f in CIP_FIELDS_ORDER if f in actual_known]
 
-    if actual_required != expected_order:
+    if actual_known != expected_order:
         errors.append(
             f"Header fields are not in the correct order. "
             f"Expected: {', '.join(expected_order)}. "
-            f"Got: {', '.join(actual_required)}"
+            f"Got: {', '.join(actual_known)}"
         )
 
     return errors

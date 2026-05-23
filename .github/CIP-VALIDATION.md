@@ -29,9 +29,9 @@ All 9 required fields must appear in order. The `Solution To` field is optional.
 | **Authors** | 5 | Yes | Non-empty list, each entry: `Name <email>` |
 | **Implementors** | 6 | Yes | List of strings, `[]` if no implementor yet, or `N/A` when not applicable |
 | **Discussions** | 7 | Yes | Non-empty list, each entry: `Label: URL` |
+| **Solution To** | (between Discussions and Created, if present) | No | Non-empty list of bare CPS references like `CPS-0001` (or `CPS-0001?` for a CPS still in PR). |
 | **Created** | 8 | Yes | Date in `YYYY-MM-DD` format |
 | **License** | 9 | Yes | `CC-BY-4.0` or `Apache-2.0` |
-| **Solution To** | (after License if present) | No | Non-empty list of bare CPS references like `CPS-0001` (or `CPS-0001?` for a CPS still in PR). |
 
 ## CIP / CPS Label Validation
 

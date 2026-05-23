@@ -8,10 +8,10 @@ Authors:
 Implementors: []
 Discussions:
     - Pull Request: https://github.com/cardano-foundation/CIPs/pull/?
-Created: YYYY-MM-DD
-License: CC-BY-4.0
 # Solution To:
 #     - CPS-XXXX
+Created: YYYY-MM-DD
+License: CC-BY-4.0
 ---
 
 <!-- Existing categories:

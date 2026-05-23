@@ -114,7 +114,7 @@
         ]
       }
     },
-    "Solution-To": {
+    "Solution To": {
       "description": "A list of CPS (Cardano Problem Statements) that this CIP addresses, if any. Omitted when not applicable. Each entry is a bare CPS reference like 'CPS-0001' (or 'CPS-0001?' if the CPS is still an open PR).",
       "type": "array",
       "minItems": 1,

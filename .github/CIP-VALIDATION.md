@@ -18,7 +18,7 @@ These attempt to codify the guidance described within [CIP-0001 | CIP Process](.
 
 ## Header Field Validations
 
-All 9 required fields must appear in order. The `Solution-To` field is optional. No other fields are allowed.
+All 9 required fields must appear in order. The `Solution To` field is optional. No other fields are allowed.
 
 | Field | Order | Required? | Validation Rules |
 | ----- | ----- | --------- | ---------------- |
@@ -31,7 +31,7 @@ All 9 required fields must appear in order. The `Solution-To` field is optional.
 | **Discussions** | 7 | Yes | Non-empty list, each entry: `Label: URL` |
 | **Created** | 8 | Yes | Date in `YYYY-MM-DD` format |
 | **License** | 9 | Yes | `CC-BY-4.0` or `Apache-2.0` |
-| **Solution-To** | (after License if present) | No | Non-empty list of bare CPS references like `CPS-0001` (or `CPS-0001?` for a CPS still in PR). |
+| **Solution To** | (after License if present) | No | Non-empty list of bare CPS references like `CPS-0001` (or `CPS-0001?` for a CPS still in PR). |
 
 ## CIP / CPS Label Validation
 

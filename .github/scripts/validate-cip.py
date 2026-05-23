@@ -26,7 +26,7 @@ CIP_REQUIRED_FIELDS_ORDER = [
 CIP_REQUIRED_FIELDS = set(CIP_REQUIRED_FIELDS_ORDER)
 
 # Optional fields (allowed but not required)
-CIP_OPTIONAL_FIELDS = {'Solution-To'}
+CIP_OPTIONAL_FIELDS = {'Solution To'}
 
 # Required sections (H2 headers) in required order
 CIP_REQUIRED_SECTIONS_ORDER = [
@@ -204,7 +204,7 @@ def validate_no_h1_headings(content: str) -> List[str]:
 def _validate_field_order(frontmatter: Dict) -> List[str]:
     """Validate that header fields appear in the correct order.
 
-    Optional fields (e.g., Solution-To) may appear at any position and are
+    Optional fields (e.g., Solution To) may appear at any position and are
     ignored for the order check; only the required-field order is enforced.
 
     Returns:

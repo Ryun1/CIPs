@@ -6,10 +6,10 @@ Status: Proposed
 Authors:
   - Grace Lee <grace@example.com>
 Implementors: []
-Solution-To:
-  - CPS-1
 Discussions:
   - Pull Request: https://github.com/cardano-foundation/CIPs/pull/9
+Solution To:
+  - CPS-1
 Created: 2024-09-01
 License: CC-BY-4.0
 ---

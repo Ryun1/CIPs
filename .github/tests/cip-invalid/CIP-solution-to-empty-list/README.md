@@ -6,9 +6,9 @@ Status: Proposed
 Authors:
   - John Doe <john@example.com>
 Implementors: []
-Solution-To: []
 Discussions:
   - https://github.com/cardano-foundation/CIPs/pull/222
+Solution To: []
 Created: 2024-01-01
 License: CC-BY-4.0
 ---

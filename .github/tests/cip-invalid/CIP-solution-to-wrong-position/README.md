@@ -1,17 +1,16 @@
 ---
-CIP: 106
-Title: Solution To Multiple CPS
-Category: Wallets
+CIP: 223
+Title: Solution To In Wrong Position
+Category: Meta
 Status: Proposed
 Authors:
-  - Hank Green <hank@example.com>
+  - John Doe <john@example.com>
 Implementors: []
-Discussions:
-  - Pull Request: https://github.com/cardano-foundation/CIPs/pull/10
 Solution To:
   - CPS-1
-  - CPS-42
-Created: 2024-10-01
+Discussions:
+  - Pull Request: https://github.com/cardano-foundation/CIPs/pull/223
+Created: 2024-01-01
 License: CC-BY-4.0
 ---
 

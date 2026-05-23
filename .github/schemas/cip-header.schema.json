@@ -59,9 +59,9 @@
       ]
     },
     "Status": {
-      "description": "Status of the CIP: Proposed, Active, or Inactive (with optional reason)",
+      "description": "Status of the CIP: Proposed, Active, or Inactive with a required parenthetical reason (e.g., 'Inactive (Superseded by CIP-NNNN)')",
       "type": "string",
-      "pattern": "^(Proposed|Active|Inactive(?:\\s+\\(.*\\))?)$"
+      "pattern": "^(Proposed|Active|Inactive\\s+\\(.+\\))$"
     },
     "Authors": {
       "description": "A list of authors' real names and email addresses (e.g. John Doe <john.doe@email.domain>)",

@@ -145,6 +145,27 @@ def extract_h1_headers(content: str) -> List[str]:
     return headers
 
 
+def extract_section_body(content: str, section_name: str) -> str:
+    """Extract the body text under a specific H2 section, until the next H2 or EOF."""
+    lines = content.split('\n')
+    body_lines = []
+    in_section = False
+
+    for line in lines:
+        h2_match = re.match(r'^##\s+(.+)$', line)
+        if h2_match:
+            if in_section:
+                break
+            current_section = h2_match.group(1).strip()
+            in_section = (current_section == section_name)
+            continue
+
+        if in_section:
+            body_lines.append(line)
+
+    return '\n'.join(body_lines)
+
+
 def extract_h3_headers_under_section(content: str, section_name: str) -> List[str]:
     """Extract H3 headers (###) that appear under a specific H2 section."""
     lines = content.split('\n')
@@ -315,6 +336,38 @@ def _validate_label_entries(entries: list, field_name: str, label_prefixes: List
     return errors
 
 
+def _entry_url(entry) -> Optional[str]:
+    """Extract URL from a Discussions entry (string 'Label: URL', plain URL, or {Label: URL})."""
+    if isinstance(entry, dict) and len(entry) == 1:
+        _, url = next(iter(entry.items()))
+        return url.strip() if isinstance(url, str) else None
+    if isinstance(entry, str):
+        match = re.match(r'^([^:]+):\s+(.+)$', entry)
+        if match:
+            return match.group(2).strip()
+        return entry.strip()
+    return None
+
+
+def _validate_discussions_has_pr(entries) -> List[str]:
+    """Validate that Discussions includes at least one PR link to the CIPs repo."""
+    errors = []
+    if not isinstance(entries, list):
+        return errors
+
+    pr_pattern = re.compile(r'^https://github\.com/cardano-foundation/CIPs/pull/\d+(?:[/?#].*)?$')
+    for entry in entries:
+        url = _entry_url(entry)
+        if url and pr_pattern.match(url):
+            return errors
+
+    errors.append(
+        "'Discussions' must include at least one pull request link of the form "
+        "'https://github.com/cardano-foundation/CIPs/pull/<N>'"
+    )
+    return errors
+
+
 def validate_header(frontmatter: Dict) -> List[str]:
     """Validate the YAML frontmatter header for CIPs.
 
@@ -361,6 +414,29 @@ def validate_header(frontmatter: Dict) -> List[str]:
     # Validate CIP/CPS label semantic rules on Discussions
     if 'Discussions' in frontmatter:
         errors.extend(_validate_label_entries(frontmatter['Discussions'], 'Discussions', ['CIP', 'CPS']))
+        errors.extend(_validate_discussions_has_pr(frontmatter['Discussions']))
+
+    return errors
+
+
+def validate_copyright_references_license(frontmatter: Dict, content: str) -> List[str]:
+    """Validate that the Copyright section references the License field's abbreviation."""
+    errors = []
+
+    license_value = frontmatter.get('License')
+    if not isinstance(license_value, str):
+        return errors  # License presence/type handled by schema validation
+
+    h2_headers = extract_h2_headers(content)
+    copyright_header = next((h for h in h2_headers if h.lower() == 'copyright'), None)
+    if copyright_header is None:
+        return errors  # Missing-section error reported by validate_sections
+
+    body = extract_section_body(content, copyright_header)
+    if license_value not in body:
+        errors.append(
+            f"'Copyright' section must reference the License abbreviation '{license_value}'"
+        )
 
     return errors
 
@@ -557,6 +633,9 @@ def validate_file(file_path: Path) -> Tuple[bool, List[str]]:
 
     section_errors = validate_sections(remaining_content)
     errors.extend(section_errors)
+
+    copyright_errors = validate_copyright_references_license(frontmatter, remaining_content)
+    errors.extend(copyright_errors)
 
     is_valid = len(errors) == 0
     return is_valid, errors

@@ -25,10 +25,10 @@ All 9 required fields must appear in order. The `Solution To` field is optional.
 | **CIP** | 1 | Yes | Positive integer (`1`, `42`) or `?`/`??`/etc. for unassigned. No leading zeros. |
 | **Title** | 2 | Yes | 1-100 characters, no backticks (`` ` ``) |
 | **Category** | 3 | Yes | One of: `Meta`, `Wallets`, `Tokens`, `Metadata`, `Tools`, `Plutus`, `Ledger`, `Consensus`, `Network`, `?` |
-| **Status** | 4 | Yes | `Proposed`, `Active`, or `Inactive` (optionally with reason, e.g., `Inactive (Superseded)`) |
+| **Status** | 4 | Yes | `Proposed`, `Active`, or `Inactive` with a required parenthetical reason (e.g., `Inactive (Superseded by CIP-NNNN)`) |
 | **Authors** | 5 | Yes | Non-empty list, each entry: `Name <email>` |
 | **Implementors** | 6 | Yes | List of strings, `[]` if no implementor yet, or `N/A` when not applicable |
-| **Discussions** | 7 | Yes | Non-empty list, each entry: `Label: URL` |
+| **Discussions** | 7 | Yes | Non-empty list, each entry: `Label: URL`. Must include at least one pull request link of the form `https://github.com/cardano-foundation/CIPs/pull/<N>`. |
 | **Solution To** | (between Discussions and Created, if present) | No | Non-empty list of bare CPS references like `CPS-0001` (or `CPS-0001?` for a CPS still in PR). |
 | **Created** | 8 | Yes | Date in `YYYY-MM-DD` format |
 | **License** | 9 | Yes | `CC-BY-4.0` or `Apache-2.0` |
@@ -69,6 +69,10 @@ Under `Path to Active`, the following H3 subsections are required:
 
 - `Acceptance Criteria`
 - `Implementation Plan`
+
+### Copyright Section Content
+
+The body of the `Copyright` section must contain the abbreviation declared in the `License` header field (e.g., a `License: CC-BY-4.0` header requires the literal text `CC-BY-4.0` to appear under `## Copyright`).
 
 ## Optional Sections
 

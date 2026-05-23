@@ -1,0 +1,38 @@
+name: Validator Tests
+
+on:
+  push:
+    branches:
+      - cip-validation-test
+    paths:
+      - '.github/scripts/validate-cip.py'
+      - '.github/scripts/run-tests.sh'
+      - '.github/schemas/cip-header.schema.json'
+      - '.github/tests/**'
+      - '.github/workflows/test-validators.yaml'
+  pull_request:
+    paths:
+      - '.github/scripts/validate-cip.py'
+      - '.github/scripts/run-tests.sh'
+      - '.github/schemas/cip-header.schema.json'
+      - '.github/tests/**'
+      - '.github/workflows/test-validators.yaml'
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install pyyaml jsonschema
+
+      - name: Run validator test suite
+        run: bash .github/scripts/run-tests.sh

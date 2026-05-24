@@ -9,8 +9,8 @@ Implementors: []
 Discussions:
   - Pull Request: https://github.com/cardano-foundation/CIPs/pull/10
 Solution To:
-  - CPS-1
-  - CPS-42
+  - CPS-0001
+  - CPS-0042
 Created: 2024-10-01
 License: CC-BY-4.0
 ---

@@ -7,7 +7,7 @@ Authors:
   - John Doe <john@example.com>
 Implementors: []
 Solution To:
-  - CPS-1
+  - CPS-0001
 Discussions:
   - Pull Request: https://github.com/cardano-foundation/CIPs/pull/223
 Created: 2024-01-01

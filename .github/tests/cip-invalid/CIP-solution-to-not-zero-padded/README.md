@@ -1,16 +1,16 @@
 ---
-CIP: 105
-Title: Solution To Single CPS
-Category: Metadata
+CIP: 350
+Title: Solution To Reference Not Zero-Padded
+Category: Meta
 Status: Proposed
 Authors:
-  - Grace Lee <grace@example.com>
+  - John Doe <john@example.com>
 Implementors: []
 Discussions:
-  - Pull Request: https://github.com/cardano-foundation/CIPs/pull/9
+  - Pull Request: https://github.com/cardano-foundation/CIPs/pull/350
 Solution To:
-  - CPS-0001
-Created: 2024-09-01
+  - CPS-1
+Created: 2024-01-01
 License: CC-BY-4.0
 ---
 

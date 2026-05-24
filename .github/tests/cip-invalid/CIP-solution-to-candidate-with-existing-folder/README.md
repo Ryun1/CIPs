@@ -9,7 +9,7 @@ Implementors: []
 Discussions:
   - Pull Request: https://github.com/cardano-foundation/CIPs/pull/331
 Solution To:
-  - "CPS-1?"
+  - "CPS-0001?"
 Created: 2024-01-01
 License: CC-BY-4.0
 ---

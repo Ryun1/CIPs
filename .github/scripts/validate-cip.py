@@ -548,6 +548,124 @@ def validate_sections(content: str) -> List[str]:
     return errors
 
 
+def validate_header_whitespace(raw_lines: List[str]) -> List[str]:
+    """Validate that header lines have no trailing whitespace.
+
+    PyYAML strips trailing whitespace on load, so e.g. ``License: CC-BY-4.0  ``
+    passes header validation despite the trailing spaces. This check inspects
+    the raw frontmatter lines preserved by ``parse_frontmatter``.
+
+    Returns:
+        List of error messages (empty if valid)
+    """
+    errors = []
+    for line in raw_lines:
+        if line and line != line.rstrip():
+            errors.append(f"Header line has trailing whitespace: '{line}'")
+    return errors
+
+
+def _strip_code(content: str) -> str:
+    """Strip fenced and inline code spans from markdown content."""
+    no_fences = re.sub(r'```.*?```', '', content, flags=re.DOTALL)
+    return re.sub(r'`[^`\n]*`', '', no_fences)
+
+
+def _ref_folder_exists(repo_root: Path, prefix: str, number: int) -> bool:
+    """Check whether a CIP/CPS folder exists at the repo root."""
+    return (repo_root / f"{prefix}-{number:04d}").is_dir()
+
+
+def validate_solution_to(frontmatter: Dict, file_path: Path) -> List[str]:
+    """Validate Solution To entries against on-disk CPS folders.
+
+    A bare ``CPS-NNNN`` must point to an existing CPS folder; a ``CPS-NNNN?``
+    must point to one that does not exist yet (still in PR).
+
+    Returns:
+        List of error messages (empty if valid)
+    """
+    errors = []
+    entries = frontmatter.get('Solution To')
+    if not isinstance(entries, list):
+        return errors
+
+    repo_root = file_path.parent.parent
+    entry_pattern = re.compile(r'^CPS-(\d+)(\?)?$')
+
+    for entry in entries:
+        if not isinstance(entry, str):
+            continue
+        match = entry_pattern.match(entry.strip())
+        if not match:
+            continue  # Format error reported by schema validation
+        number = int(match.group(1))
+        is_candidate = match.group(2) == '?'
+        canonical = f"CPS-{number:04d}"
+        exists = _ref_folder_exists(repo_root, 'CPS', number)
+
+        if is_candidate and exists:
+            errors.append(
+                f"'Solution To' entry '{canonical}?' indicates a candidate but "
+                f"{canonical} folder exists; drop the '?'"
+            )
+        elif not is_candidate and not exists:
+            errors.append(
+                f"'Solution To' entry '{canonical}' references a CPS that has no folder; "
+                f"add '?' if it is still in PR"
+            )
+
+    return errors
+
+
+def validate_cross_references(content: str, frontmatter: Dict, file_path: Path) -> List[str]:
+    """Validate that CIP-NNNN and CPS-NNNN references in the body point to existing folders.
+
+    References inside fenced or inline code blocks are ignored (treated as examples).
+    References suffixed with '?' are treated as candidates (still in PR) and skipped.
+    Self-references to the CIP's own number are skipped.
+
+    Returns:
+        List of error messages (empty if valid)
+    """
+    errors = []
+    repo_root = file_path.parent.parent
+
+    own_number = None
+    own_value = frontmatter.get('CIP')
+    if isinstance(own_value, int):
+        own_number = own_value
+    elif isinstance(own_value, str):
+        try:
+            own_number = int(own_value)
+        except ValueError:
+            own_number = None
+
+    stripped = _strip_code(content)
+    pattern = re.compile(r'\b(CIP|CPS)-(\d{1,5})(?!\d)(\??)')
+
+    seen: Set[Tuple[str, int]] = set()
+    for match in pattern.finditer(stripped):
+        prefix, digits, candidate = match.group(1), match.group(2), match.group(3)
+        number = int(digits)
+        if candidate == '?':
+            continue
+        if prefix == 'CIP' and own_number is not None and number == own_number:
+            continue
+        key = (prefix, number)
+        if key in seen:
+            continue
+        seen.add(key)
+        if not _ref_folder_exists(repo_root, prefix, number):
+            canonical = f"{prefix}-{number:04d}"
+            errors.append(
+                f"Body references '{canonical}' but no such folder exists in the repository "
+                f"(use '{canonical}?' if it is still in PR)"
+            )
+
+    return errors
+
+
 def validate_directory_name(frontmatter: Dict, file_path: Path) -> List[str]:
     """Validate that a CIP with an assigned number lives in a correctly-named directory.
 
@@ -621,6 +739,9 @@ def validate_file(file_path: Path) -> Tuple[bool, List[str]]:
                 errors.append("CIP number must not have leading zeros")
                 break
 
+    if raw_lines:
+        errors.extend(validate_header_whitespace(raw_lines))
+
     # Validate the directory name matches the assigned CIP number
     dir_errors = validate_directory_name(frontmatter, file_path)
     errors.extend(dir_errors)
@@ -628,11 +749,15 @@ def validate_file(file_path: Path) -> Tuple[bool, List[str]]:
     header_errors = validate_header(frontmatter)
     errors.extend(header_errors)
 
+    errors.extend(validate_solution_to(frontmatter, file_path))
+
     h1_errors = validate_no_h1_headings(remaining_content)
     errors.extend(h1_errors)
 
     section_errors = validate_sections(remaining_content)
     errors.extend(section_errors)
+
+    errors.extend(validate_cross_references(remaining_content, frontmatter, file_path))
 
     copyright_errors = validate_copyright_references_license(frontmatter, remaining_content)
     errors.extend(copyright_errors)

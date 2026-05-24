@@ -14,7 +14,9 @@ These attempt to codify the guidance described within [CIP-0001 | CIP Process](.
 | Directory name | If the `CIP` field has an assigned number (not `?`), the directory must be named `CIP-NNNN` where `NNNN` is the CIP number zero-padded to 4 digits (e.g., `CIP: 12` → `CIP-0012/`) |
 | Line endings | Must use UNIX line endings (LF), not Windows (CRLF) or old Mac (CR) |
 | Frontmatter | Must have valid YAML frontmatter between `---` delimiters |
+| Header line whitespace | Frontmatter lines must not have trailing whitespace |
 | No H1 headings | H1 (`#`) headings are not allowed in the document body |
+| Body cross-references | `CIP-NNNN` / `CPS-NNNN` references in the body must point to an existing folder. Use `CIP-NNNN?` / `CPS-NNNN?` for a document that is still in PR. References inside fenced or inline code blocks are ignored. |
 
 ## Header Field Validations
 
@@ -29,7 +31,7 @@ All 9 required fields must appear in order. The `Solution To` field is optional.
 | **Authors** | 5 | Yes | Non-empty list, each entry: `Name <email>` |
 | **Implementors** | 6 | Yes | List of strings, `[]` if no implementor yet, or `N/A` when not applicable |
 | **Discussions** | 7 | Yes | Non-empty list, each entry: `Label: URL`. Must include at least one pull request link of the form `https://github.com/cardano-foundation/CIPs/pull/<N>`. |
-| **Solution To** | (between Discussions and Created, if present) | No | Non-empty list of bare CPS references like `CPS-0001` (or `CPS-0001?` for a CPS still in PR). |
+| **Solution To** | (between Discussions and Created, if present) | No | Non-empty list of bare CPS references like `CPS-0001` (or `CPS-0001?` for a CPS still in PR). A bare `CPS-NNNN` must point to an existing folder; a `CPS-NNNN?` must point to one that does not yet exist. |
 | **Created** | 8 | Yes | Date in `YYYY-MM-DD` format |
 | **License** | 9 | Yes | `CC-BY-4.0` or `Apache-2.0` |
 

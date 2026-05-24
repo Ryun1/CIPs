@@ -120,8 +120,8 @@
       "minItems": 1,
       "items": {
         "type": "string",
-        "pattern": "^CPS-\\d+\\??$",
-        "description": "CPS reference (e.g., 'CPS-0001' or 'CPS-0001?')"
+        "pattern": "^CPS-(?!0+\\??$)\\d{4,}\\??$",
+        "description": "CPS reference, zero-padded to at least 4 digits (e.g., 'CPS-0001' or 'CPS-0001?')"
       }
     },
     "Created": {

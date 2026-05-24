@@ -10,6 +10,13 @@
 # validated. This isolates the directory-name check from the structural
 # checks the fixtures are actually meant to exercise.
 #
+# Companion folders: a fixture directory may contain additional empty
+# subdirectories named like 'CPS-0001/' or 'CIP-0030/'. These are copied
+# alongside the temporary CIP-NNNN/ so the validator's Solution To and body
+# cross-reference checks (which look up sibling folders at the repo root) can
+# be exercised with controlled presence/absence of the referenced documents.
+# Companion folders are tracked in git via a '.gitkeep' file inside each.
+#
 # Usage:
 #   bash .github/scripts/run-tests.sh                 # every fixture
 #   bash .github/scripts/run-tests.sh minimal         # path-substring filter
@@ -60,11 +67,23 @@ run_one() {
     return
   fi
 
-  local dirname fixture_dir stderr rc actual
+  local dirname fixture_root fixture_dir fixture_src companion stderr rc actual
   dirname="$(cip_dir_name "$readme")"
-  fixture_dir="$TMPROOT/$dirname"
+  # Per-fixture root so companion folders never leak between fixtures.
+  fixture_root="$(mktemp -d -p "$TMPROOT" fixture.XXXXXX)"
+  fixture_dir="$fixture_root/$dirname"
   mkdir -p "$fixture_dir"
   cp "$readme" "$fixture_dir/README.md"
+
+  # Copy any companion subdirectories (e.g. CPS-0001/) into the fixture root
+  # so that validate_solution_to / validate_cross_references can find them.
+  fixture_src="$(dirname "$readme")"
+  for companion in "$fixture_src"/*/; do
+    [ -d "$companion" ] || continue
+    # Strip trailing slash so macOS cp copies the directory itself, not its
+    # contents.
+    cp -R "${companion%/}" "$fixture_root/"
+  done
 
   stderr="$(python3 "$VALIDATOR" "$fixture_dir/README.md" 2>&1 1>/dev/null)"
   rc=$?

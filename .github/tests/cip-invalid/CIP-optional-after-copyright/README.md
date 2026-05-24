@@ -1,13 +1,13 @@
 ---
-CIP: 301
-Title: Discussions Without PR Link
+CIP: 314
+Title: Optional Section After Copyright
 Category: Meta
 Status: Proposed
 Authors:
   - John Doe <john@example.com>
 Implementors: []
 Discussions:
-  - Forum Post: https://forum.cardano.org/t/some-discussion/12345
+  - Pull Request: https://github.com/cardano-foundation/CIPs/pull/314
 Created: 2024-01-01
 License: CC-BY-4.0
 ---
@@ -41,3 +41,7 @@ This is the implementation plan subsection.
 ## Copyright
 
 This CIP is licensed under CC-BY-4.0.
+
+## Versioning
+
+Version history for this CIP, misplaced after Copyright.

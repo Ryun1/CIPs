@@ -1,13 +1,14 @@
 ---
-CIP: 301
-Title: Discussions Without PR Link
+CIP: 311
+Title: Discussions CIP PR Label Missing Question Mark
 Category: Meta
 Status: Proposed
 Authors:
   - John Doe <john@example.com>
 Implementors: []
 Discussions:
-  - Forum Post: https://forum.cardano.org/t/some-discussion/12345
+  - Pull Request: https://github.com/cardano-foundation/CIPs/pull/311
+  - CIP-30: https://github.com/cardano-foundation/CIPs/pull/30
 Created: 2024-01-01
 License: CC-BY-4.0
 ---

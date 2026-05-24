@@ -1,13 +1,14 @@
 ---
-CIP: 301
-Title: Discussions Without PR Link
+CIP: 316
+Title: Discussions Entry Without Label Colon
 Category: Meta
 Status: Proposed
 Authors:
   - John Doe <john@example.com>
 Implementors: []
 Discussions:
-  - Forum Post: https://forum.cardano.org/t/some-discussion/12345
+  - Pull Request: https://github.com/cardano-foundation/CIPs/pull/316
+  - "https://forum.cardano.org/t/some-thread/99999"
 Created: 2024-01-01
 License: CC-BY-4.0
 ---

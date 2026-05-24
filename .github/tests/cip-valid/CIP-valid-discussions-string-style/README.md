@@ -1,13 +1,13 @@
 ---
-CIP: 301
-Title: Discussions Without PR Link
+CIP: 320
+Title: Discussions Using String Label Form
 Category: Meta
 Status: Proposed
 Authors:
-  - John Doe <john@example.com>
+  - Jane Doe <jane@example.com>
 Implementors: []
 Discussions:
-  - Forum Post: https://forum.cardano.org/t/some-discussion/12345
+  - "Pull Request: https://github.com/cardano-foundation/CIPs/pull/320"
 Created: 2024-01-01
 License: CC-BY-4.0
 ---

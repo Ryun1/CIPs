@@ -1,13 +1,14 @@
 ---
-CIP: 301
-Title: Discussions Without PR Link
+CIP: 310
+Title: Discussions CIP Label With Non-GitHub URL
 Category: Meta
 Status: Proposed
 Authors:
   - John Doe <john@example.com>
 Implementors: []
 Discussions:
-  - Forum Post: https://forum.cardano.org/t/some-discussion/12345
+  - Pull Request: https://github.com/cardano-foundation/CIPs/pull/310
+  - CIP-30: https://forum.cardano.org/t/cip-30-discussion/12345
 Created: 2024-01-01
 License: CC-BY-4.0
 ---

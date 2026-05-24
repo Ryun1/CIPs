@@ -1,13 +1,14 @@
 ---
-CIP: 301
-Title: Discussions Without PR Link
+CIP: 313
+Title: Discussions CPS Label With Non-GitHub URL
 Category: Meta
 Status: Proposed
 Authors:
   - John Doe <john@example.com>
 Implementors: []
 Discussions:
-  - Forum Post: https://forum.cardano.org/t/some-discussion/12345
+  - Pull Request: https://github.com/cardano-foundation/CIPs/pull/313
+  - CPS-1: https://forum.cardano.org/t/cps-1-discussion/67890
 Created: 2024-01-01
 License: CC-BY-4.0
 ---

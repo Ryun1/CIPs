@@ -1,13 +1,13 @@
 ---
-CIP: 301
-Title: Discussions Without PR Link
+CIP: 225
+Title: Inactive Status With Empty Parens
 Category: Meta
-Status: Proposed
+Status: Inactive ()
 Authors:
   - John Doe <john@example.com>
 Implementors: []
 Discussions:
-  - Forum Post: https://forum.cardano.org/t/some-discussion/12345
+  - Pull Request: https://github.com/cardano-foundation/CIPs/pull/225
 Created: 2024-01-01
 License: CC-BY-4.0
 ---

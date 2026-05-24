@@ -38,7 +38,10 @@ fail=0
 cip_dir_name() {
   local readme="$1"
   local raw
-  raw=$(awk '/^---/{c++; next} c==1 && /^CIP:[[:space:]]/{print $2; exit}' "$readme")
+  # Normalize CR/CRLF -> LF so the CIP number can be extracted from
+  # fixtures that deliberately use non-LF endings (those fixtures still
+  # exercise the validator's line-ending check from the original file).
+  raw=$(tr '\r' '\n' < "$readme" | awk '/^---/{c++; next} c==1 && /^CIP:[[:space:]]/{print $2; exit}')
   if [ -z "$raw" ] || [[ "$raw" == \?* ]]; then
     echo "CIP-9999"
   elif [[ "$raw" =~ ^[0-9]+$ ]]; then

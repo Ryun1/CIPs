@@ -1,13 +1,15 @@
 ---
-CIP: 301
-Title: Discussions Without PR Link
+CIP: 321
+Title: Solution To Open CPS Candidate
 Category: Meta
 Status: Proposed
 Authors:
-  - John Doe <john@example.com>
+  - Jane Doe <jane@example.com>
 Implementors: []
 Discussions:
-  - Forum Post: https://forum.cardano.org/t/some-discussion/12345
+  - Pull Request: https://github.com/cardano-foundation/CIPs/pull/321
+Solution To:
+  - "CPS-1?"
 Created: 2024-01-01
 License: CC-BY-4.0
 ---

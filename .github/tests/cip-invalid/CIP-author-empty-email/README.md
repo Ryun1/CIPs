@@ -1,13 +1,13 @@
 ---
-CIP: 301
-Title: Discussions Without PR Link
+CIP: 315
+Title: Author With Empty Email
 Category: Meta
 Status: Proposed
 Authors:
-  - John Doe <john@example.com>
+  - John Doe <>
 Implementors: []
 Discussions:
-  - Forum Post: https://forum.cardano.org/t/some-discussion/12345
+  - Pull Request: https://github.com/cardano-foundation/CIPs/pull/315
 Created: 2024-01-01
 License: CC-BY-4.0
 ---

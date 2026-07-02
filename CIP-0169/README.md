@@ -1,5 +1,5 @@
 ---
-CIP: 169
+CIP: ?
 Title: Governance Metadata - On-Chain Binding
 Category: Metadata
 Status: Proposed

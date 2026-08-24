@@ -1,0 +1,57 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Updatable Parameters",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "commonName": {
+        "type": "string",
+        "description": "What I feel to be the common name of the parameter."
+      },
+      "specName": {
+        "type": "string",
+        "description": "Naming found in formal specification." 
+      },
+      "genesisFileName": {
+        "type": "string",
+        "description": "Naming found in genesis file."
+      },
+      "cliName": {
+        "type": "string",
+        "description": "Naming found via cardano-cli."
+      },
+      "dbSyncName": {
+        "type": "string",
+        "description": "Naming found via cardano-db-sync."
+      },
+      "constitutionName": {
+        "type": "string",
+        "description": "Naming found in the Cardano Constitution."
+      },
+      "definition": {
+        "type": "string",
+        "description": "A definition of the parameter, including its purpose and how it is used and what its denominated in."
+      },
+      "eraAdded": {
+        "type": "string",
+        "description": "Which Ledger era in which the parameter was added.",
+        "enum": ["Byron", "Shelley", "Alonzo", "Babbage", "Conway"]
+      },
+      "eraRemoved": {
+        "type": "string",
+        "description": "Which Ledger era in which the parameter was removed.",
+        "enum": ["Byron", "Shelley", "Alonzo", "Babbage", "Conway"]
+      }
+    },
+    "required": [
+      "commonName",
+      "specName",
+      "genesisFileName",
+      "dbSyncName",
+      "definition",
+      "eraAdded"
+    ],
+    "additionalProperties": false
+  }
+}
